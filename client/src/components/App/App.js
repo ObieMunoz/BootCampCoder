@@ -45,7 +45,7 @@ function App() {
         </nav>
       </header>
 
-      <Route exact path="/">
+      <Route exact path=" /">
         <Dashboard />
       </Route>
       <Route path="/preferences">
