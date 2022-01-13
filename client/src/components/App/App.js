@@ -7,6 +7,7 @@ import useToken from './useToken';
 import Registration from '../Authentication/Registration';
 import WhoAmI from '../Authentication/WhoAmI';
 import './App.css';
+import GitHubVisualizer from '../Pages/GitHubVisualizer';
 
 function App() {
   const { token, tokenId, setToken } = useToken();
@@ -39,6 +40,7 @@ function App() {
           <Link to="/"><div>Dashboard</div></Link>
           <Link to="/preferences"><div>Preferences</div></Link>
           <Link to="/me"><div>Me</div></Link>
+          <Link to="/visualizer"><div>GitHub Visualizer</div></Link>
           <div onClick={() => logout()}>Logout</div>
         </nav>
       </header>
@@ -51,6 +53,9 @@ function App() {
       </Route>
       <Route path="/me">
         <WhoAmI />
+      </Route>
+      <Route path="/visualizer">
+        <GitHubVisualizer />
       </Route>
     </div>
   );
