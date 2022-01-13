@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './Registration.css';
 
 async function registerUser(credentials) {
-    console.log(credentials)
     return fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: new Headers({

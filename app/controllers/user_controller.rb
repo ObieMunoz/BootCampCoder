@@ -4,8 +4,11 @@ class UserController < ApplicationController
     def create
         user = User.create(user_params)
         if user.valid?
-            user.api_keys.create! token: SecureRandom.hex
-            render json: { user: user, token: user.api_keys.first }, status: :created
+            token = SecureRandom.hex
+            user.api_keys.create! token: token
+            # render json: { user: user, token: user.api_keys.first }, status: :created
+            render json: { user: user, token: token }, status: :created
+            # render json: { user: user, token: current_bearer.api_keys }, status: :created
         else
             render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end

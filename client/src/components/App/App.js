@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Link, useHistory } from 'react-router-dom';
-import './App.css';
 import Dashboard from '../Pages/Dashboard';
 import Login from '../Authentication/Login';
 import Preferences from '../Pages/Preferences';
 import useToken from './useToken';
 import Registration from '../Authentication/Registration';
 import WhoAmI from '../Authentication/WhoAmI';
+import './App.css';
 
 function App() {
   const { token, tokenId, setToken } = useToken();
@@ -20,7 +20,6 @@ function App() {
   }
 
   async function logout() {
-    console.log(token)
     await fetch('http://localhost:3000/api-keys/' + tokenId, {
       method: 'DELETE',
       headers: new Headers({
@@ -34,11 +33,15 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>Application</h1>
-      <Link to="/">Dashboard</Link>
-      <Link to="/preferences">Preferences</Link>
-      <Link to="/me">Me</Link>
-      <div onClick={() => logout()}>Logout</div>
+      <header>
+        <h1>Application</h1>
+        <nav>
+          <Link to="/"><div>Dashboard</div></Link>
+          <Link to="/preferences"><div>Preferences</div></Link>
+          <Link to="/me"><div>Me</div></Link>
+          <div onClick={() => logout()}>Logout</div>
+        </nav>
+      </header>
 
       <Route exact path="/">
         <Dashboard />
@@ -47,7 +50,7 @@ function App() {
         <Preferences />
       </Route>
       <Route path="/me">
-        <WhoAmI token={token} />
+        <WhoAmI />
       </Route>
     </div>
   );
