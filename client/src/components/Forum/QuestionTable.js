@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -53,7 +54,9 @@ export default function QuestionTable({ questions }) {
                     {rows.map((row) => (
                         <StyledTableRow key={row.question_id}>
                             <StyledTableCell component="th" scope="row">
-                                {row.question}
+                                <Link to={`/questions/${row.question_id}`} style={{ textDecoration: "none", color: "black" }}>
+                                    {row.question}
+                                </Link>
                             </StyledTableCell>
                             <StyledTableCell align="right">{row.comments_count}</StyledTableCell>
                             <StyledTableCell align="right">{row.author}</StyledTableCell>

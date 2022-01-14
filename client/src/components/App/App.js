@@ -9,6 +9,7 @@ import './App.css';
 import GitHubVisualizer from '../Pages/GitHubVisualizer';
 import Button from "@mui/material/Button"
 import { Stack } from '@mui/material';
+import QuestionDetail from '../Pages/QuestionDetail';
 
 function App() {
   const { token, tokenId, setToken } = useToken();
@@ -63,6 +64,9 @@ function App() {
       </Route>
       <Route path="/visualizer">
         <GitHubVisualizer />
+      </Route>
+      <Route path="/questions/:question_id">
+        <QuestionDetail />
       </Route>
     </div>
   );

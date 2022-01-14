@@ -24,7 +24,6 @@ export default function Registration({ setToken }) {
 
 
     useEffect(() => {
-        // console.log(errors)
     }, [errors])
 
     const handleSubmit = async e => {
