@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Registration.css';
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField';
+import Button from "@mui/material/Button"
 
 async function registerUser(credentials) {
     return fetch('http://localhost:3000/users', {
@@ -45,24 +48,36 @@ export default function Registration({ setToken }) {
     return (
         <div className="registration-wrapper">
             <h1>Register New User</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p>E-Mail Address</p>
-                    <input type="text" onChange={e => setUserName(e.target.value)} required />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} required />
-                </label>
-                <label>
-                    <p>GitHub Username</p>
-                    <input type="text" onChange={e => setGithub(e.target.value)} />
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-                {errors.map(error => <p key={error}>{error}</p>)}
-            </form>
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                autoComplete="off"
+            >
+                <TextField
+                    id="registration-username-field"
+                    label="E-Mail Address"
+                    value={username}
+                    type="text"
+                    onChange={e => setUserName(e.target.value)}
+                /><br /><br />
+                <TextField
+                    id="registration-password-field"
+                    label="Password"
+                    value={password}
+                    type="password"
+                    onChange={e => setPassword(e.target.value)}
+                /><br /><br />
+                <TextField
+                    id="registration-github-field"
+                    label="GitHub Username"
+                    value={github}
+                    type="text"
+                    onChange={e => setGithub(e.target.value)}
+                />
+                <br /><br />
+                <Button variant="contained" color="primary" type="submit" size="large">sign up</Button>
+            </Box>
         </div>
     )
 }

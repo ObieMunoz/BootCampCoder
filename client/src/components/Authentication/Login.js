@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField';
+import Button from "@mui/material/Button"
 
 async function loginUser(credentials) {
     return fetch('http://localhost:3000/api-keys', {
@@ -14,8 +17,8 @@ async function loginUser(credentials) {
 }
 
 export default function Login({ setToken }) {
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -29,19 +32,29 @@ export default function Login({ setToken }) {
     return (
         <div className="login-wrapper">
             <h1>Please Log In</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p>E-Mail Address</p>
-                    <input type="text" onChange={e => setUserName(e.target.value)} />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                autoComplete="off"
+            >
+                <TextField
+                    id="login-username-field"
+                    label="E-Mail Address"
+                    value={username}
+                    type="text"
+                    onChange={e => setUserName(e.target.value)}
+                /><br /><br />
+                <TextField
+                    id="login-password-field"
+                    label="Password"
+                    value={password}
+                    type="password"
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <br /><br />
+                <Button variant="contained" color="primary" type="submit" size="large">Log In</Button>
+            </Box>
         </div>
     )
 }

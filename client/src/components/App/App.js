@@ -5,19 +5,22 @@ import Login from '../Authentication/Login';
 import Preferences from '../Pages/Preferences';
 import useToken from './useToken';
 import Registration from '../Authentication/Registration';
-import WhoAmI from '../Authentication/WhoAmI';
 import './App.css';
 import GitHubVisualizer from '../Pages/GitHubVisualizer';
+import Button from "@mui/material/Button"
+import { Stack } from '@mui/material';
 
 function App() {
   const { token, tokenId, setToken } = useToken();
   const history = useHistory();
 
   if (!token) {
-    return <>
+    return <div style={{ textAlign: "center" }}>
+      <h1>Application</h1>
+      <br />
       <Login setToken={setToken} />
       <Registration setToken={setToken} />
-    </>
+    </div>
   }
 
   async function logout() {
@@ -36,23 +39,27 @@ function App() {
     <div className="wrapper">
       <header>
         <h1>Application</h1>
-        <nav>
-          <Link to="/"><div>Dashboard</div></Link>
-          <Link to="/preferences"><div>Preferences</div></Link>
-          <Link to="/me"><div>Me</div></Link>
-          <Link to="/visualizer"><div>GitHub Visualizer</div></Link>
-          <div onClick={() => logout()}>Logout</div>
-        </nav>
+        <Stack spacing={10} direction="row" textAlign="center" justifyContent="center">
+          <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
+            Dashboard
+          </Button></Link>
+          <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
+            Preferences
+          </Button></Link>
+          <Link to="/visualizer" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
+            GitHub Visualizer
+          </Button></Link>
+          <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" size="large">
+            Logout
+          </Button>
+        </Stack>
       </header>
 
-      <Route exact path=" /">
+      <Route exact path="/">
         <Dashboard />
       </Route>
       <Route path="/preferences">
         <Preferences />
-      </Route>
-      <Route path="/me">
-        <WhoAmI />
       </Route>
       <Route path="/visualizer">
         <GitHubVisualizer />
