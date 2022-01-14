@@ -17,9 +17,9 @@ async function registerUser(credentials) {
 }
 
 export default function Registration({ setToken }) {
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
-    const [github, setGithub] = useState();
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [github, setGithub] = useState('');
     const [errors, setErrors] = useState([]);
 
 
