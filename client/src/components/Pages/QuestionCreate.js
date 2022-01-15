@@ -3,11 +3,12 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 import useToken from '../App/useToken';
+import { useHistory } from 'react-router-dom';
 
 function QuestionCreate() {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-
+    const history = useHistory();
     const { token } = useToken();
 
     async function handleSubmit(e) {
@@ -25,8 +26,9 @@ function QuestionCreate() {
                 title: title,
                 body: body
             })
-        });
+        })
         const data = await res.json();
+        res.status === 201 ? history.push('/') : console.log("Error")
         console.log(data)
     }
 
@@ -61,7 +63,7 @@ function QuestionCreate() {
                 <br /><br />
                 <Button variant="contained" color="primary" type="submit" size="large">Post Question</Button>
                 &nbsp;&nbsp;
-                <Button variant="contained" color="primary" size="large">Go back</Button>
+                <Button variant="contained" color="primary" size="large" onClick={() => history.push("/")}>Go back</Button>
             </Box>
         </div>
     )
