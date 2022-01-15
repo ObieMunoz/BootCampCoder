@@ -36,7 +36,7 @@ function QuestionDetail() {
             <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Question from {question.author} | {question.created_at}
+                        Question from {question.author} | {new Date(question.created_at).toLocaleString()}
                     </Typography>
                     <Typography variant="h4" component="div">
                         {question.title}
@@ -58,7 +58,7 @@ function QuestionDetail() {
                         <Card sx={{ minWidth: 275 }} key={comment.id}>
                             <CardContent>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Comment from {comment.author} | {comment.created_at}
+                                    Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
                                 </Typography>
                                 <Typography variant="body2" sx={{ fontSize: 20 }}>
                                     {comment.body}
