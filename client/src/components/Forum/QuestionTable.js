@@ -65,7 +65,7 @@ export default function QuestionTable({ questions }) {
                             </StyledTableCell>
                             <StyledTableCell align="right">{row.comments_count}</StyledTableCell>
                             <StyledTableCell align="right">{row.author}</StyledTableCell>
-                            <StyledTableCell align="right">{row.updated_at}</StyledTableCell>
+                            <StyledTableCell align="right">{new Date(row.updated_at).toLocaleString()}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
