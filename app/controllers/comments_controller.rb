@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  include ApiKeyAuthenticatable
   before_action :set_comment, only: %i[ show update destroy ]
   before_action :authenticate_with_api_key!, only: %i[ create update destroy ]
 
@@ -19,7 +20,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @question.comments.new(comment_params) if current_user.present?
+    @comment = @question.comments.new(comment_params) if current_bearer.present?
     if @comment.save
       render json: @comment.attributes.except('created_at')
                           .merge(author: @comment.user.username),
@@ -50,10 +51,10 @@ class CommentsController < ApplicationController
   private
 
   def user_comment
-    comment = if current_user.admin?
+    comment = if current_bearer.admin?
                comment.find(params[:id])
              else
-               current_user.comments.find(params[:id])
+               current_bearer.comments.find(params[:id])
              end
     comment
   end

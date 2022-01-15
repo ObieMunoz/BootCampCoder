@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  include ApiKeyAuthenticatable
   before_action :set_question, only: %i[ show update destroy ]
   before_action :authenticate_with_api_key!, only: %i[ create update destroy ]
 
@@ -12,7 +13,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = current_user.questions.new(question_params)
+    @question = current_bearer.questions.new(question_params)
     if @question.save
       render json: @question, status: :created
     else
@@ -21,10 +22,10 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_user.present? && current_user.admin?
+    if current_bearer.present? && current_user.admin?
       @question =  Question.find(params[:id])
     else
-      @question = current_user.questions.find(params[:id])
+      @question = current_bearer.questions.find(params[:id])
     end
 
     if @question.update(question_params)
@@ -35,7 +36,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = current_user.admin? ? Question.find(params[:id]) : current_user.questions.find(params[:id])
+    @question = current_bearer.admin? ? Question.find(params[:id]) : current_user.questions.find(params[:id])
     @question.destroy
   end
 

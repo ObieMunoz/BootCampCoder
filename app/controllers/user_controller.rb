@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+    include ApiKeyAuthenticatable
     prepend_before_action :authenticate_with_api_key!, only: %i[destroy]
 
     def create
