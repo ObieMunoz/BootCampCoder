@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 function QuestionDetail() {
     let { question_id } = useParams();
-    const { token } = useToken();
+    const { token, bearer } = useToken();
     const [question, setQuestion] = useState({});
 
     useEffect(() => {
@@ -46,14 +46,16 @@ function QuestionDetail() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Learn More</Button>
+                    <Button size="small">Reply</Button>
+                    {bearer.admin || (question.author === bearer.email) ? <Button size="small">Edit</Button> : null}
+                    {bearer.admin || (question.author === bearer.email) ? <Button size="small">Delete</Button> : null}
                 </CardActions>
             </Card>
             <h2>Comments</h2>
             {question.comments?.length > 0 ? question.comments.map(comment => {
                 return (
                     <>
-                        <Card sx={{ minWidth: 275 }}>
+                        <Card sx={{ minWidth: 275 }} key={comment.id}>
                             <CardContent>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                     Comment from {comment.author} | {comment.created_at}
@@ -62,6 +64,10 @@ function QuestionDetail() {
                                     {comment.body}
                                 </Typography>
                             </CardContent>
+                            <CardActions>
+                                {bearer.admin || (comment.author === bearer.email) ? <Button size="small">Edit</Button> : null}
+                                {bearer.admin || (comment.author === bearer.email) ? <Button size="small">Delete</Button> : null}
+                            </CardActions>
                         </Card>
                         <br />
                     </>

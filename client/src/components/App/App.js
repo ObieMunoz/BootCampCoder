@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, useHistory } from 'react-router-dom';
+import { Route, Link, useHistory, Switch } from 'react-router-dom';
 import Dashboard from '../Pages/Dashboard';
 import Login from '../Authentication/Login';
 import Preferences from '../Pages/Preferences';
@@ -10,6 +10,7 @@ import GitHubVisualizer from '../Pages/GitHubVisualizer';
 import Button from "@mui/material/Button"
 import { Stack } from '@mui/material';
 import QuestionDetail from '../Pages/QuestionDetail';
+import QuestionCreate from '../Pages/QuestionCreate';
 
 function App() {
   const { token, tokenId, setToken } = useToken();
@@ -56,18 +57,23 @@ function App() {
         </Stack>
       </header>
 
-      <Route exact path="/">
-        <Dashboard />
-      </Route>
-      <Route path="/preferences">
-        <Preferences />
-      </Route>
-      <Route path="/visualizer">
-        <GitHubVisualizer />
-      </Route>
-      <Route path="/questions/:question_id">
-        <QuestionDetail />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          <Dashboard />
+        </Route>
+        <Route path="/preferences">
+          <Preferences />
+        </Route>
+        <Route path="/visualizer">
+          <GitHubVisualizer />
+        </Route>
+        <Route path="/questions/new">
+          <QuestionCreate />
+        </Route>
+        <Route path="/questions/:question_id">
+          <QuestionDetail />
+        </Route>
+      </Switch>
     </div>
   );
 }
