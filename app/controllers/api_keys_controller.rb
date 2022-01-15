@@ -15,7 +15,7 @@ class ApiKeysController < ApplicationController
           render json: api_key, include: :bearer, status: :created and return
         end
       end
-      render status: :unauthorized
+      render json: { errors: "Invalid username or password"}, status: :unauthorized
     end
 
     def destroy
