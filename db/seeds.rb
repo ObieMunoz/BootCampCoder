@@ -10,7 +10,8 @@ User.create(email: 'joshua@gmail.com', password: '1', github_username:'jdhawks21
 end
 
 25.times do
-    question = Question.create(title:Faker::Lorem.sentence, body:Faker::Lorem.paragraph, user_id:User.all.sample.id)
+    question = Question.create(title:Faker::Quote.yoda, body:Faker::Lorem.paragraph, user_id:User.all.sample.id)
+    puts question.errors.full_messages
 end
 
 100.times do
