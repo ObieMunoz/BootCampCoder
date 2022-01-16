@@ -22,11 +22,16 @@ function GitHubVisualizer() {
     useEffect(() => {
         if (gitData) {
             for (let i = 1; i <= Math.ceil(gitData.public_repos / 100); i += 1) {
-                fetch(`https://api.github.com/users/${github_username}/repos?page=${i}&per_page=100`)
-                    .then(response => response.json())
-                    .then(data => {
-                        setGitRepos(prevState => [...prevState, ...data])
-                    })
+                if (i <= 6) {
+                    fetch(`https://api.github.com/users/${github_username}/repos?page=${i}&per_page=100`)
+                        .then(response => response.json())
+                        .then(data => {
+                            setGitRepos(prevState => [...prevState, ...data])
+                        })
+                } else {
+                    console.log('Due to API rate limitations, only the first 500 repositories are scanned.')
+                    break
+                }
             }
         }
     }, [gitData])
