@@ -44,9 +44,10 @@ function GitHubVisualizer() {
             <h2>GitHub Visualizer</h2>
             <img src={gitData.avatar_url} alt="GitHub Avatar" width="250px" />
             <p>Name: {gitData.name}</p>
-            <p>Number of Repositories: {gitData.public_repos}</p>
-            <p>Number of Followers: {gitData.followers}</p>
-            <p>Number of Following: {gitData.following}</p>
+            <p>Repositories: {gitData.public_repos}</p>
+            <p>Followers: {gitData.followers}</p>
+            <p>Following: {gitData.following}</p>
+            <p>Active GitHub Pages Deployments: {gitRepoList.length}</p>
             <p>Github URL: {gitData.html_url}</p>
             {/* <p>{JSON.stringify(gitData)}</p> */}
             {gitRepoList.map(repo => (
