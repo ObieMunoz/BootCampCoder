@@ -13,8 +13,9 @@ function QuestionDetail() {
     let { question_id } = useParams();
     const { token, bearer } = useToken();
     const [question, setQuestion] = useState({});
-    const [editedQuestion, setEditedQuestion] = useState({ title: '', body: '' });
     const [editingQuestionMode, setEditingQuestionMode] = useState(false);
+    const [questionFormData, setQuestionFormData] = useState({ title: '', body: '' });
+    const [commentFormData, setCommentFormData] = useState({ body: '', comment_id: 0 });
     const history = useHistory();
 
     useEffect(() => {
@@ -31,8 +32,10 @@ function QuestionDetail() {
         });
         const data = await res.json();
         console.log(data)
-        setEditedQuestion(() => data);
-        return setQuestion(() => data);
+        return (
+            setQuestion(() => data),
+            setQuestionFormData(() => ({ title: data.title, body: data.body }))
+        )
     }
 
     async function handleDeleteQuestion() {
@@ -55,7 +58,10 @@ function QuestionDetail() {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
             }),
-            body: JSON.stringify({ title: editedQuestion.title, body: editedQuestion.body })
+            body: JSON.stringify({
+                title: questionFormData.title,
+                body: questionFormData.body
+            })
         })
         const data = await res.json();
         console.log(data)
@@ -67,49 +73,79 @@ function QuestionDetail() {
         }
     }
 
+    function handleEditQuestion() {
+        setEditingQuestionMode(() => true);
+    }
+
+    function handleCancelEditQuestion() {
+        setEditingQuestionMode(() => false);
+        setQuestionFormData(() => ({ title: question.title, body: question.body }));
+    }
+
+    function handleChangeQuestion(e) {
+        setQuestionFormData(() => ({ ...questionFormData, [e.target.name]: e.target.value }))
+    }
+
+    async function removeComment(commend_id, question_id) {
+        const res = await fetch(`http://localhost:3000/comments/${commend_id}`, {
+            method: "DELETE",
+            headers: new Headers({
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                comment_id: commend_id,
+                question_id: question_id
+            })
+        });
+        const data = await res.json();
+        console.log(data)
+        getQuestion();
+    }
+
     return (
         <div>
             <h2>Question Detail</h2>
-            <Card sx={{ minWidth: 275 }} key={nanoid()}>
+            <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         Question from {question.author} | {new Date(question.created_at).toLocaleString()}
                     </Typography>
                     {editingQuestionMode
-                        ? <TextField
-                            id="new-question-title-field"
-                            label="Question Title"
-                            type="text"
-                            value={editedQuestion.title}
-                            fullWidth
-                            required
-                            onChange={e => setEditedQuestion({ ...editedQuestion, title: e.target.value })}
-
-                        />
-                        : <Typography variant="h4" component="div">
-                            {editedQuestion.title}
-                        </Typography>}
-                    {editingQuestionMode
-                        ? <>
+                        ? <div>
+                            <TextField
+                                id="new-question-title-field"
+                                name="title"
+                                label="Question Title"
+                                type="text"
+                                fullWidth
+                                required
+                                value={questionFormData.title}
+                                onChange={handleChangeQuestion}
+                            />
                             <br /> <br />
                             <TextField
                                 id="outlined-textarea"
+                                name="body"
                                 label="Description"
                                 multiline
                                 fullWidth
-                                value={editedQuestion.body}
                                 rows={6}
                                 required
-                                onChange={e => setEditedQuestion({ ...editedQuestion, body: e.target.value })}
-
+                                value={questionFormData.body}
+                                onChange={handleChangeQuestion}
                             />
-                        </>
-                        :
-                        <pre>
-                            <Typography variant="body2" sx={{ fontSize: 20 }}>
-                                {editedQuestion.body}
+                        </div>
+                        : <div>
+                            <Typography variant="h4" component="div">
+                                {questionFormData.title}
                             </Typography>
-                        </pre>
+                            <pre>
+                                <Typography variant="body2" sx={{ fontSize: 20 }}>
+                                    {questionFormData.body}
+                                </Typography>
+                            </pre>
+                        </div>
                     }
                 </CardContent>
                 <CardActions>
@@ -117,16 +153,13 @@ function QuestionDetail() {
                         <Button variant="contained" size="small" onClick={handleUpdateQuestion}>
                             Submit update
                         </Button>
-                        <Button variant="contained" size="small" onClick={() => {
-                            setEditingQuestionMode(false)
-                            setEditedQuestion({ title: question.title, body: question.body })
-                        }}>
+                        <Button variant="contained" size="small" onClick={handleCancelEditQuestion}>
                             Cancel
                         </Button>
                     </>
                         : <>
                             <Button size="small">Reply</Button>
-                            {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={() => setEditingQuestionMode(!editingQuestionMode)}>Edit</Button> : null}
+                            {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={handleEditQuestion}>Edit</Button> : null}
                             {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={handleDeleteQuestion}>Delete</Button> : null}
                         </>
                     }
@@ -137,7 +170,7 @@ function QuestionDetail() {
             <h2>Comments</h2>
             {question.comments?.length > 0 ? question.comments.map(comment => {
                 return (
-                    <div key={nanoid()}>
+                    <div key={comment.id}>
                         <Card sx={{ minWidth: 275 }}>
                             <CardContent>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -151,7 +184,7 @@ function QuestionDetail() {
                             </CardContent>
                             <CardActions>
                                 {bearer.admin || (comment.author === bearer.email) ? <Button size="small">Edit</Button> : null}
-                                {bearer.admin || (comment.author === bearer.email) ? <Button size="small">Delete</Button> : null}
+                                {bearer.admin || (comment.author === bearer.email) ? <Button size="small" onClick={() => removeComment(comment.id, comment.question_id)}>Delete</Button> : null}
                             </CardActions>
                         </Card>
                         <br />

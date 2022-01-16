@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   include ApiKeyAuthenticatable
-  before_action :set_comment, only: %i[ show update destroy ]
+  before_action :set_question, only: %i[ show update destroy ]
   before_action :authenticate_with_api_key!, only: %i[ create update destroy ]
 
   # GET /comments
@@ -44,15 +44,18 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = user_comment
-    @comment.destroy
-    render json: @comment, status: :ok
+    if @comment.destroy
+      render json: { message: 'Comment deleted' }, status: :ok
+    else
+      render json: { errors: 'You can\'t delete other users comments' }, status: :unauthorized
+    end
   end
 
   private
 
   def user_comment
     comment = if current_bearer.admin?
-               comment.find(params[:id])
+               Comment.find(params[:id])
              else
                current_bearer.comments.find(params[:id])
              end
@@ -60,7 +63,7 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    @comment = @question.comments.find(params[:id])
+    @comment = @question.answers.find(params[:id])
   end
 
   def set_question
@@ -68,6 +71,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content, :question_id, :user_id)
+    params.require(:comment).permit(:body, :question_id, :user_id)
   end
 end
