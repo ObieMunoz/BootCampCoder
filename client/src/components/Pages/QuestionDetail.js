@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import useToken from '../App/useToken';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import { nanoid } from 'nanoid';
 
 function QuestionDetail() {
     let { question_id } = useParams();
@@ -14,6 +15,7 @@ function QuestionDetail() {
     const [question, setQuestion] = useState({});
     const [editedQuestion, setEditedQuestion] = useState({ title: '', body: '' });
     const [editingQuestionMode, setEditingQuestionMode] = useState(false);
+    const history = useHistory();
 
     useEffect(() => {
         getQuestion()
@@ -43,6 +45,7 @@ function QuestionDetail() {
         });
         const data = await res.json();
         console.log(data)
+        history.push('/');
     }
 
     async function handleUpdateQuestion() {
@@ -65,9 +68,9 @@ function QuestionDetail() {
     }
 
     return (
-        <>
+        <div>
             <h2>Question Detail</h2>
-            <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ minWidth: 275 }} key={nanoid()}>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         Question from {question.author} | {new Date(question.created_at).toLocaleString()}
@@ -81,6 +84,7 @@ function QuestionDetail() {
                             fullWidth
                             required
                             onChange={e => setEditedQuestion({ ...editedQuestion, title: e.target.value })}
+
                         />
                         : <Typography variant="h4" component="div">
                             {editedQuestion.title}
@@ -97,6 +101,7 @@ function QuestionDetail() {
                                 rows={6}
                                 required
                                 onChange={e => setEditedQuestion({ ...editedQuestion, body: e.target.value })}
+
                             />
                         </>
                         :
@@ -132,8 +137,8 @@ function QuestionDetail() {
             <h2>Comments</h2>
             {question.comments?.length > 0 ? question.comments.map(comment => {
                 return (
-                    <>
-                        <Card sx={{ minWidth: 275 }} key={comment.id}>
+                    <div key={nanoid()}>
+                        <Card sx={{ minWidth: 275 }}>
                             <CardContent>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                     Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
@@ -150,11 +155,11 @@ function QuestionDetail() {
                             </CardActions>
                         </Card>
                         <br />
-                    </>
+                    </div>
                 )
             }
             ) : "No comments yet"}
-        </>
+        </div>
     )
 }
 

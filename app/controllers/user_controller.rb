@@ -23,6 +23,13 @@ class UserController < ApplicationController
     end
 
     def destroy
+        user = User.find_by id: params[:id]
+        if current_bearer.id == user.id
+            user.destroy
+            render json: { message: "User deleted" }, status: :ok
+        else
+            render json: { errors: "You can't delete other users" }, status: :unauthorized
+        end
     end
 
     private

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import useToken from '../App/useToken';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -12,6 +13,14 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Switch } from '@mui/material';
 import Alert from '@mui/material/Alert';
+
+//
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+//
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -31,6 +40,20 @@ function WhoAmI() {
     const [newGitHubUsername, setNewGitHubUsername] = useState(bearer.github_username || '');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState();
+    const history = useHistory();
+
+    //
+    const [open, setOpen] = useState(false);
+    const [deletionEMail, setDeletionEMail] = useState('');
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (e) => {
+        setOpen(false);
+        setDeletionEMail('');
+    };
+    //
 
     useEffect(() => {
         if (errors) {
@@ -78,6 +101,30 @@ function WhoAmI() {
                 setCurrentGitHubUser(() => newGitHubUsername);
             }
             sessionStorage.setItem('token', JSON.stringify(userToken));
+        }
+    }
+
+    async function handleDeleteAccount(e) {
+        if (e.target.value === 'delete-account' && deletionEMail === bearer.email) {
+            const res = await fetch(`http://localhost:3000/users/${bearer.id}`, {
+                method: "DELETE",
+                headers: new Headers({
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }),
+            })
+            const data = await res.json();
+            if (data.errors) {
+                setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{data.errors}</Alert>)
+                setOpen(false)
+                console.log(data.errors)
+            } else {
+                sessionStorage.removeItem('token');
+                window.location.reload();
+            }
+        } else if (deletionEMail !== bearer.email) {
+            setErrors(<Alert severity="error" variant="filled" style={{ width: "500px", margin: "0px auto" }}>Please enter your email address to delete your account</Alert>)
+            setOpen(false)
         }
     }
 
@@ -159,6 +206,36 @@ function WhoAmI() {
                     <Button variant="contained" color="primary" onClick={handleUpdateGitHub}>
                         Update Information
                     </Button>
+                    <br /><br />
+                    <Button variant="contained" color="error" onClick={handleClickOpen}>
+                        Delete Account
+                    </Button>
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>Delete Account</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                This action is irreversible. Are you sure you want to delete your account?
+
+                                Type your e-mail address as confirmation.
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="deletion-password-field"
+                                label="E-Mail Address"
+                                type="E-Mail Address"
+                                fullWidth
+                                variant="standard"
+                                value={deletionEMail}
+                                onChange={(e) => setDeletionEMail(e.target.value)}
+                                required
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose} value="cancel">Cancel</Button>
+                            <Button onClick={handleDeleteAccount} value="delete-account" color="error">Yes, Delete Account</Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
                 : null}
             <br />
