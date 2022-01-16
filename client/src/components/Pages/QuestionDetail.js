@@ -29,6 +29,18 @@ function QuestionDetail() {
         return setQuestion(() => data);
     }
 
+    async function handleDeleteQuestion() {
+        const res = await fetch(`http://localhost:3000/questions/${question_id}`, {
+            method: "DELETE",
+            headers: new Headers({
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        });
+        const data = await res.json();
+        console.log(data)
+    }
+
     return (
         <>
             <h2>Question Detail</h2>
@@ -47,7 +59,7 @@ function QuestionDetail() {
                 <CardActions>
                     <Button size="small">Reply</Button>
                     {bearer.admin || (question.author === bearer.email) ? <Button size="small">Edit</Button> : null}
-                    {bearer.admin || (question.author === bearer.email) ? <Button size="small">Delete</Button> : null}
+                    {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={handleDeleteQuestion}>Delete</Button> : null}
                 </CardActions>
             </Card>
             <h2>Comments</h2>

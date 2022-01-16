@@ -36,8 +36,10 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = current_bearer.admin? ? Question.find(params[:id]) : current_user.questions.find(params[:id])
-    @question.destroy
+    if @question = current_bearer.admin? ? Question.find(params[:id]) : current_bearer.questions.find(params[:id])
+      @question.destroy
+      render json: { message: 'Question deleted' }, status: :accepted
+    end
   end
 
   private
