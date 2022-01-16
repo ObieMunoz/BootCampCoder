@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_bearer.present? && current_user.admin?
+    if current_bearer.present? && current_bearer.admin? || current_bearer.present? && current_bearer.id == @question.user_id
       @question =  Question.find(params[:id])
     else
       @question = current_bearer.questions.find(params[:id])
