@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    render json: @question.attributes.merge({author: @question.user.email, comments: @question.comments.map { |comment| comment.attributes.merge({author: comment.user.email}) }})
+    render json: @question.attributes.merge({author: @question.user.email, comments: @question.comments.order('created_at ASC').map { |comment| comment.attributes.merge({author: comment.user.email}) }})
   end
 
   def create

@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = @question.comments.order('updated_at DESC')
+    @comments = @question.comments.order('created_at DESC')
     render json: @comments.map { |comment|
     { content: comment.content,
       updated_at: comment.updated_at,
