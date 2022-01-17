@@ -1,6 +1,5 @@
 class ApiKeysController < ApplicationController
     include ApiKeyAuthenticatable
-  # Require API key authentication
   prepend_before_action :authenticate_with_api_key!, only: %i[index destroy]
 
     def index
