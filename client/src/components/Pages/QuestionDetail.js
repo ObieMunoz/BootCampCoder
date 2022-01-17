@@ -15,6 +15,7 @@ function QuestionDetail() {
     const [questionEditMode, setQuestionEditMode] = useState(false);
     const [questionFormData, setQuestionFormData] = useState({ title: '', body: '' });
     const [commentEditMode, setCommentEditMode] = useState({ body: '', comment_id: 0, question_id: 0, editing: false });
+    const [replying, setReplying] = useState({ body: '', replying: false });
 
     const history = useHistory();
 
@@ -113,7 +114,7 @@ function QuestionDetail() {
         console.log(commentEditMode)
     }
 
-    function handleUpdateComment() {
+    async function handleUpdateComment() {
         const res = fetch(`http://localhost:3000/comments/${commentEditMode.comment_id}`, {
             method: "PATCH",
             headers: new Headers({
@@ -133,6 +134,32 @@ function QuestionDetail() {
 
     function handleCancelEditComment() {
         setCommentEditMode(() => ({ ...commentEditMode, editing: false, body: '' }))
+    }
+
+    function handleEnterReply() {
+        setReplying(() => ({ ...replying, replying: true }))
+    }
+
+    function handleCancelNewComment() {
+        setReplying(() => ({ ...replying, replying: false, body: '' }))
+    }
+
+    function handleNewComment() {
+        const res = fetch(`http://localhost:3000/comments`, {
+            method: "POST",
+            headers: new Headers({
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                body: replying.body,
+                question_id: question_id
+            })
+        })
+        res.then(data => {
+            setReplying(() => ({ ...replying, replying: false, body: '' }))
+            getQuestion();
+        })
     }
 
     return (
@@ -190,15 +217,36 @@ function QuestionDetail() {
                         </Button>
                     </>
                         : <>
-                            <Button size="small">Reply</Button>
+                            <Button size="small" onClick={handleEnterReply}>Reply</Button>
                             {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={handleEditQuestion}>Edit</Button> : null}
                             {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={handleDeleteQuestion}>Delete</Button> : null}
                         </>
                     }
-
-
                 </CardActions>
             </Card>
+            {replying.replying
+                ? <div>
+                    <h3>New Reply</h3>
+                    <TextField
+                        id="outlined-textarea"
+                        name="body"
+                        label="Reply"
+                        multiline
+                        fullWidth
+                        rows={6}
+                        required
+                        value={replying.body}
+                        onChange={(e) => setReplying(() => ({ ...replying, body: e.target.value }))}
+                    />
+                    <br /><br />
+                    <Button variant="contained" size="small" onClick={handleNewComment}>
+                        Submit update
+                    </Button> &nbsp;&nbsp;
+                    <Button variant="contained" size="small" onClick={handleCancelNewComment}>
+                        Cancel
+                    </Button>
+                </div>
+                : null}
             <h2>Comments</h2>
             {question.comments?.length > 0 ? question.comments.map(comment => {
                 return (

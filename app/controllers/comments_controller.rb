@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   include ApiKeyAuthenticatable
-  before_action :set_question, only: %i[ show update destroy ]
+  before_action :set_question, only: %i[ show update destroy create ]
   before_action :authenticate_with_api_key!, only: %i[ create update destroy ]
 
   # GET /comments
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @question.comments.new(comment_params) if current_bearer.present?
+    @comment = current_bearer.comments.new(comment_params)
     if @comment.save
       render json: @comment.attributes.except('created_at')
                           .merge(author: @comment.user.email),
