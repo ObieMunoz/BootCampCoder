@@ -11,7 +11,7 @@ import Button from "@mui/material/Button"
 import { Stack } from '@mui/material';
 import QuestionDetail from '../Pages/QuestionDetail';
 import QuestionCreate from '../Pages/QuestionCreate';
-const API = 'https://bootcampcoder.herokuapp.com/'
+const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
 
 function App() {
   const { token, tokenId, setToken } = useToken();

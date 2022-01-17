@@ -1,4 +1,4 @@
-class QuestionsController < ApplicationController
+class Api::V1::QuestionsController < ApplicationController
   include ApiKeyAuthenticatable
   before_action :set_question, only: %i[ show update destroy ]
   before_action :authenticate_with_api_key!, only: %i[ create update destroy ]

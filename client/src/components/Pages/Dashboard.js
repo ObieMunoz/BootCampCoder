@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useToken from '../App/useToken';
 import ForumButtons from '../Forum/ForumButtons';
 import QuestionTable from '../Forum/QuestionTable';
-const API = 'https://bootcampcoder.herokuapp.com/'
+const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
 
 export default function Dashboard() {
     const { token } = useToken();

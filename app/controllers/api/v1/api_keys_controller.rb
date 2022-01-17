@@ -1,4 +1,4 @@
-class ApiKeysController < ApplicationController
+class Api::V1::ApiKeysController < ApplicationController
     include ApiKeyAuthenticatable
   prepend_before_action :authenticate_with_api_key!, only: %i[index destroy]
 

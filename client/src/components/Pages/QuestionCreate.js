@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 import useToken from '../App/useToken';
 import { useHistory } from 'react-router-dom';
-const API = 'https://bootcampcoder.herokuapp.com/'
+const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
 
 function QuestionCreate() {
     const [title, setTitle] = useState('');

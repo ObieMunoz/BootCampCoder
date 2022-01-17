@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class Api::V1::UserController < ApplicationController
     include ApiKeyAuthenticatable
     prepend_before_action :authenticate_with_api_key!, only: %i[update destroy]
 

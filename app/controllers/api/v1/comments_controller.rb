@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Api::V1::CommentsController < ApplicationController
   include ApiKeyAuthenticatable
   before_action :set_question, only: %i[ show update destroy create ]
   before_action :authenticate_with_api_key!, only: %i[ create update destroy ]
