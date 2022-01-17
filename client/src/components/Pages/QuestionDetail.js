@@ -201,7 +201,7 @@ function QuestionDetail() {
                                 {questionFormData.title}
                             </Typography>
                             <pre>
-                                <Typography variant="body2" sx={{ fontSize: 20 }}>
+                                <Typography variant="body2" sx={{ fontSize: 20, whiteSpace: 'pre-line' }}>
                                     {questionFormData.body}
                                 </Typography>
                             </pre>
@@ -255,7 +255,7 @@ function QuestionDetail() {
                         {commentEditMode.editing && commentEditMode.comment_id === comment.id
                             ? <Card sx={{ minWidth: 275 }}>
                                 <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    <Typography sx={{ fontSize: 14, whiteSpace: 'pre-line' }} color="text.secondary" gutterBottom>
                                         Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
                                     </Typography>
                                     <pre>
@@ -285,11 +285,9 @@ function QuestionDetail() {
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                         Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
                                     </Typography>
-                                    <pre>
-                                        <Typography variant="body2" sx={{ fontSize: 20 }}>
-                                            {comment.body}
-                                        </Typography>
-                                    </pre>
+                                    <Typography variant="body2" sx={{ fontSize: 20, whiteSpace: 'pre-line' }}>
+                                        {comment.body}
+                                    </Typography>
                                 </CardContent>
                                 <CardActions>
                                     {bearer.admin || (comment.author === bearer.email) ? <Button size="small" onClick={() => handleEditComment(comment.id, comment.body, comment.question_id)}>Edit</Button> : null}
