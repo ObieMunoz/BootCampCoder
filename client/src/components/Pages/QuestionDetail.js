@@ -273,7 +273,7 @@ function QuestionDetail() {
                                 </CardContent>
                                 <CardActions>
                                     <Button variant="contained" size="small" onClick={handleUpdateComment}>
-                                        Submit update
+                                        Submit Comment
                                     </Button>
                                     <Button variant="contained" size="small" onClick={handleCancelEditComment}>
                                         Cancel
