@@ -200,7 +200,7 @@ function GitHubVisualizer() {
                                     {repo.name.split(/-|_/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                                 </StyledTableCell>
                                 <StyledTableCell align="center">
-                                    <a href={`https://${github_username}.github.io/${repo.name}`} target="_blank" rel="noreferrer">{`https://${github_username}.github.io/${repo.name}`}</a>
+                                    <a href={`https://${github_username}.github.io/${repo.name}`} target="_blank" rel="noreferrer">{repo.name}</a>
                                 </StyledTableCell>
                             </TableRow>
                         ))}

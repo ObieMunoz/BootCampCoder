@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     @comment = @question.comments.new(comment_params) if current_bearer.present?
     if @comment.save
       render json: @comment.attributes.except('created_at')
-                          .merge(author: @comment.user.username),
+                          .merge(author: @comment.user.email),
              status: :created
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
 
     if @comment.update(comment_params)
       render json: @comment.attributes.except('created_at')
-                          .merge(author: @comment.user.username),
+                          .merge(author: @comment.user.email),
              status: :ok
     else
       render json: @comment.errors, status: :unprocessable_entity

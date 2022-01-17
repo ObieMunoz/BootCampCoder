@@ -45,11 +45,11 @@ function App() {
           <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
             Dashboard
           </Button></Link>
-          <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
-            Preferences
-          </Button></Link>
           <Link to="/visualizer" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
             GitHub Visualizer
+          </Button></Link>
+          <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
+            Preferences
           </Button></Link>
           <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" size="large">
             Logout

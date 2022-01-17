@@ -12,9 +12,10 @@ function QuestionDetail() {
     let { question_id } = useParams();
     const { token, bearer } = useToken();
     const [question, setQuestion] = useState({});
-    const [editingQuestionMode, setEditingQuestionMode] = useState(false);
+    const [questionEditMode, setQuestionEditMode] = useState(false);
     const [questionFormData, setQuestionFormData] = useState({ title: '', body: '' });
-    const [commentFormData, setCommentFormData] = useState({ body: '', comment_id: 0 });
+    const [commentEditMode, setCommentEditMode] = useState({ body: '', comment_id: 0, question_id: 0, editing: false });
+
     const history = useHistory();
 
     useEffect(() => {
@@ -68,16 +69,16 @@ function QuestionDetail() {
             // setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{data.errors}</Alert>)
             console.log(data.errors)
         } else {
-            setEditingQuestionMode(() => false);
+            setQuestionEditMode(() => false);
         }
     }
 
     function handleEditQuestion() {
-        setEditingQuestionMode(() => true);
+        setQuestionEditMode(() => true);
     }
 
     function handleCancelEditQuestion() {
-        setEditingQuestionMode(() => false);
+        setQuestionEditMode(() => false);
         setQuestionFormData(() => ({ title: question.title, body: question.body }));
     }
 
@@ -102,6 +103,38 @@ function QuestionDetail() {
         getQuestion();
     }
 
+    function handleChangeComment(e) {
+        setCommentEditMode(() => ({ ...commentEditMode, body: e.target.value }))
+        console.log(commentEditMode)
+    }
+
+    function handleEditComment(comment_id, comment_body, question_id) {
+        setCommentEditMode(() => ({ ...commentEditMode, editing: true, comment_id: comment_id, body: comment_body, question_id: question_id }))
+        console.log(commentEditMode)
+    }
+
+    function handleUpdateComment() {
+        const res = fetch(`http://localhost:3000/comments/${commentEditMode.comment_id}`, {
+            method: "PATCH",
+            headers: new Headers({
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                body: commentEditMode.body,
+                question_id: commentEditMode.question_id
+            })
+        })
+        res.then(data => {
+            setCommentEditMode(() => ({ ...commentEditMode, editing: false }))
+            getQuestion();
+        })
+    }
+
+    function handleCancelEditComment() {
+        setCommentEditMode(() => ({ ...commentEditMode, editing: false, body: '' }))
+    }
+
     return (
         <div>
             <h2>Question Detail</h2>
@@ -110,7 +143,7 @@ function QuestionDetail() {
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         Question from {question.author} | {new Date(question.created_at).toLocaleString()}
                     </Typography>
-                    {editingQuestionMode
+                    {questionEditMode
                         ? <div>
                             <TextField
                                 id="new-question-title-field"
@@ -148,7 +181,7 @@ function QuestionDetail() {
                     }
                 </CardContent>
                 <CardActions>
-                    {editingQuestionMode ? <>
+                    {questionEditMode ? <>
                         <Button variant="contained" size="small" onClick={handleUpdateQuestion}>
                             Submit update
                         </Button>
@@ -170,22 +203,50 @@ function QuestionDetail() {
             {question.comments?.length > 0 ? question.comments.map(comment => {
                 return (
                     <div key={comment.id}>
-                        <Card sx={{ minWidth: 275 }}>
-                            <CardContent>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
-                                </Typography>
-                                <pre>
-                                    <Typography variant="body2" sx={{ fontSize: 20 }}>
-                                        {comment.body}
+                        {commentEditMode.editing && commentEditMode.comment_id === comment.id
+                            ? <Card sx={{ minWidth: 275 }}>
+                                <CardContent>
+                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                        Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
                                     </Typography>
-                                </pre>
-                            </CardContent>
-                            <CardActions>
-                                {bearer.admin || (comment.author === bearer.email) ? <Button size="small">Edit</Button> : null}
-                                {bearer.admin || (comment.author === bearer.email) ? <Button size="small" onClick={() => removeComment(comment.id, comment.question_id)}>Delete</Button> : null}
-                            </CardActions>
-                        </Card>
+                                    <pre>
+                                        <TextField
+                                            id={`comment-edit-field-${comment.id}`}
+                                            name="comment-edit-field"
+                                            label="Comment Body"
+                                            type="text"
+                                            fullWidth
+                                            required
+                                            value={commentEditMode.body}
+                                            onChange={handleChangeComment}
+                                        />
+                                    </pre>
+                                </CardContent>
+                                <CardActions>
+                                    <Button variant="contained" size="small" onClick={handleUpdateComment}>
+                                        Submit update
+                                    </Button>
+                                    <Button variant="contained" size="small" onClick={handleCancelEditComment}>
+                                        Cancel
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                            : <Card sx={{ minWidth: 275 }}>
+                                <CardContent>
+                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                        Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
+                                    </Typography>
+                                    <pre>
+                                        <Typography variant="body2" sx={{ fontSize: 20 }}>
+                                            {comment.body}
+                                        </Typography>
+                                    </pre>
+                                </CardContent>
+                                <CardActions>
+                                    {bearer.admin || (comment.author === bearer.email) ? <Button size="small" onClick={() => handleEditComment(comment.id, comment.body, comment.question_id)}>Edit</Button> : null}
+                                    {bearer.admin || (comment.author === bearer.email) ? <Button size="small" onClick={() => removeComment(comment.id, comment.question_id)}>Delete</Button> : null}
+                                </CardActions>
+                            </Card>}
                         <br />
                     </div>
                 )
