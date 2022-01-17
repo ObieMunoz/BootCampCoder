@@ -5,9 +5,10 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 import Alert from '@mui/material/Alert';
+const API = 'https://bootcampcoder.herokuapp.com/'
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:3000/api-keys', {
+    return fetch(API + 'api-keys', {
         method: 'POST',
         headers: new Headers({
             'Authorization': 'Basic ' + btoa(credentials.email + ":" + credentials.password),

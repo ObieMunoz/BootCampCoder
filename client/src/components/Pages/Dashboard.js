@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useToken from '../App/useToken';
 import ForumButtons from '../Forum/ForumButtons';
 import QuestionTable from '../Forum/QuestionTable';
+const API = 'https://bootcampcoder.herokuapp.com/'
 
 export default function Dashboard() {
     const { token } = useToken();
@@ -12,7 +13,7 @@ export default function Dashboard() {
     }, [])
 
     async function getQuestions() {
-        const res = await fetch('http://localhost:3000/questions', {
+        const res = await fetch(API + 'questions', {
             method: "GET",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,

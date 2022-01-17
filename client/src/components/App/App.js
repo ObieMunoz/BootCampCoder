@@ -11,6 +11,7 @@ import Button from "@mui/material/Button"
 import { Stack } from '@mui/material';
 import QuestionDetail from '../Pages/QuestionDetail';
 import QuestionCreate from '../Pages/QuestionCreate';
+const API = 'https://bootcampcoder.herokuapp.com/'
 
 function App() {
   const { token, tokenId, setToken } = useToken();
@@ -26,7 +27,7 @@ function App() {
   }
 
   async function logout() {
-    await fetch('http://localhost:3000/api-keys/' + tokenId, {
+    await fetch(API + 'api-keys/' + tokenId, {
       method: 'DELETE',
       headers: new Headers({
         'Authorization': 'Bearer ' + token,
