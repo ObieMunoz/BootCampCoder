@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+const API = 'https://bootcampcoder.herokuapp.com/'
 
 function QuestionDetail() {
     let { question_id } = useParams();
