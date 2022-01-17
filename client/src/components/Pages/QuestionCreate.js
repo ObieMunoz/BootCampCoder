@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 import useToken from '../App/useToken';
 import { useHistory } from 'react-router-dom';
+const API = 'https://bootcampcoder.herokuapp.com/'
 
 function QuestionCreate() {
     const [title, setTitle] = useState('');
@@ -16,7 +17,7 @@ function QuestionCreate() {
         console.log("Submitted")
         console.log(title)
         console.log(body)
-        const res = await fetch(`http://localhost:3000/questions`, {
+        const res = await fetch(API + `questions`, {
             method: "POST",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,

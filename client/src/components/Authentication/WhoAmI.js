@@ -68,7 +68,7 @@ function WhoAmI() {
     }
 
     async function handleUpdateGitHub() {
-        const res = await fetch(`http://localhost:3000/users/${bearer.id}`, {
+        const res = await fetch(API + `users/${bearer.id}`, {
             method: "PATCH",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,
@@ -106,7 +106,7 @@ function WhoAmI() {
 
     async function handleDeleteAccount(e) {
         if (e.target.value === 'delete-account' && deletionEMail === bearer.email) {
-            const res = await fetch(`http://localhost:3000/users/${bearer.id}`, {
+            const res = await fetch(API + `users/${bearer.id}`, {
                 method: "DELETE",
                 headers: new Headers({
                     'Authorization': 'Bearer ' + token,

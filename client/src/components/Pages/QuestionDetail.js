@@ -24,7 +24,7 @@ function QuestionDetail() {
     }, [])
 
     async function getQuestion() {
-        const res = await fetch(`http://localhost:3000/questions/${question_id}`, {
+        const res = await fetch(API + `questions/${question_id}`, {
             method: "GET",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,
@@ -40,7 +40,7 @@ function QuestionDetail() {
     }
 
     async function handleDeleteQuestion() {
-        const res = await fetch(`http://localhost:3000/questions/${question_id}`, {
+        const res = await fetch(API + `questions/${question_id}`, {
             method: "DELETE",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,
@@ -53,7 +53,7 @@ function QuestionDetail() {
     }
 
     async function handleUpdateQuestion() {
-        const res = await fetch(`http://localhost:3000/questions/${question_id}`, {
+        const res = await fetch(API + `questions/${question_id}`, {
             method: "PATCH",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,
@@ -88,7 +88,7 @@ function QuestionDetail() {
     }
 
     async function removeComment(commend_id, question_id) {
-        const res = await fetch(`http://localhost:3000/comments/${commend_id}`, {
+        const res = await fetch(API + `comments/${commend_id}`, {
             method: "DELETE",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,
@@ -115,7 +115,7 @@ function QuestionDetail() {
     }
 
     async function handleUpdateComment() {
-        const res = fetch(`http://localhost:3000/comments/${commentEditMode.comment_id}`, {
+        const res = fetch(API + `comments/${commentEditMode.comment_id}`, {
             method: "PATCH",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,
@@ -145,7 +145,7 @@ function QuestionDetail() {
     }
 
     function handleNewComment() {
-        const res = fetch(`http://localhost:3000/comments`, {
+        const res = fetch(API + `comments`, {
             method: "POST",
             headers: new Headers({
                 'Authorization': 'Bearer ' + token,
