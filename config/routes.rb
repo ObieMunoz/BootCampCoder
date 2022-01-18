@@ -13,10 +13,7 @@ Rails.application.routes.draw do
       get 'users', to: 'user#index'
       patch 'users/:id', to: 'user#update'
 
-      get "*path", to: "application#fallback_index", constraints: ->(request) do
-        !request.xhr? && request.format.html?
-      end
-
+      get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
     end
   end
 end
