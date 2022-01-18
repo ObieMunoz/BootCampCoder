@@ -12,8 +12,7 @@ Rails.application.routes.draw do
       delete 'users/:id', to: 'user#destroy'
       get 'users', to: 'user#index'
       patch 'users/:id', to: 'user#update'
-
-      get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
     end
   end
+  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end
