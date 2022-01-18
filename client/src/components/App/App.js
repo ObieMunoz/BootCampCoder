@@ -74,6 +74,9 @@ function App() {
         <Route path="/questions/:question_id">
           <QuestionDetail />
         </Route>
+        <Route path="*">
+          <Dashboard />
+        </Route>
       </Switch>
     </div>
   );
