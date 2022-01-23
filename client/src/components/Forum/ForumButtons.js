@@ -8,16 +8,11 @@ function ForumButtons() {
     const history = useHistory();
 
     return (
-        <div>
-            <Stack spacing={10} direction="row" textAlign="center" justifyContent="center">
-                <Button className="forum-buttons" variant="contained" color="secondary" onClick={() => history.push('/questions/new')}>
-                    Create Question
-                </Button>
-                {/* <Button className="forum-buttons" variant="contained" color="secondary">
-                    Refresh Board
-                </Button> */}
-            </Stack>
-        </div>
+        <Stack spacing={10} direction="row" textAlign="center" justifyContent="center">
+            <Button className="forum-buttons" variant="contained" color="secondary" onClick={() => history.push('/questions/new')}>
+                Create Question
+            </Button>
+        </Stack>
     )
 }
 

@@ -5,17 +5,17 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 import Alert from '@mui/material/Alert';
-const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
+import { API } from '../App/App'
 
 async function loginUser(credentials) {
-    return fetch(API + 'api-keys', {
+    return fetch(`${API}api-keys`, {
         method: 'POST',
         headers: new Headers({
-            'Authorization': 'Basic ' + btoa(credentials.email + ":" + credentials.password),
+            'Authorization': 'Basic ' + btoa(`${credentials.email}:${credentials.password}`),
             'Content-Type': 'application/x-www-form-urlencoded'
         })
     })
-        .then(data => data.json())
+        .then(data => data.json());
 }
 
 export default function Login({ setToken }) {
@@ -42,7 +42,6 @@ export default function Login({ setToken }) {
             email: username,
             password: password
         });
-        // setToken(token);
         if (token.errors) {
             setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{token.errors}</Alert>)
             console.log(token.errors)

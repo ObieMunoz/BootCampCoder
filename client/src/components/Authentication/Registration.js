@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 import Alert from '@mui/material/Alert';
-const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
+import { API } from '../App/App'
 
 async function registerUser(credentials) {
     return fetch(API + 'users', {

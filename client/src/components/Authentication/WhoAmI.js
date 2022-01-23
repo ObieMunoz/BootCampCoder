@@ -18,7 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
+import { API } from '../App/App'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,11 +37,9 @@ function WhoAmI() {
     const [newGitHubUsername, setNewGitHubUsername] = useState(bearer.github_username || '');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState();
-    const history = useHistory();
-
-    //
     const [open, setOpen] = useState(false);
     const [deletionEMail, setDeletionEMail] = useState('');
+    const history = useHistory();
     const handleClickOpen = () => {
         setOpen(true);
     };

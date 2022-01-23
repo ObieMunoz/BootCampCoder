@@ -3,7 +3,7 @@ import useToken from '../App/useToken';
 import ForumButtons from '../Forum/ForumButtons';
 import QuestionTable from '../Forum/QuestionTable';
 import { useHistory } from 'react-router-dom';
-const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
+import { API } from '../App/App'
 
 export default function Dashboard() {
     const { token } = useToken();
