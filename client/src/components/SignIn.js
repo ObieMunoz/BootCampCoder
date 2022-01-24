@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { API } from '../App/App';
+import { API } from '../App';
 import { CopyrightStringWithMailToAndDate } from './CopyrightStringWithMailToAndDate';
 
 const theme = createTheme();
@@ -52,7 +52,7 @@ export default function SignIn({ setToken }) {
         });
         if (token.errors) {
             setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{token.errors}</Alert>);
-            console.log(token.errors);
+            // console.log(token.errors);
         } else {
             setToken(token);
             console.log(token);

@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CopyrightStringWithMailToAndDate } from './CopyrightStringWithMailToAndDate';
 import Alert from '@mui/material/Alert';
-import { API } from '../App/App';
+import { API } from '../App';
 
 const theme = createTheme();
 

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
-import useToken from '../App/useToken';
+import useToken from './useToken';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { API } from '../App/App'
+import { API } from '../App'
 
 function QuestionDetail() {
     let { question_id } = useParams();

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import useToken from '../App/useToken';
-import ForumButtons from '../Forum/ForumButtons';
-import QuestionTable from '../Forum/QuestionTable';
+import useToken from './useToken';
+import ForumButtons from './ForumButtons';
+import QuestionTable from './QuestionTable';
 import { useHistory } from 'react-router-dom';
-import { API } from '../App/App'
+import { API } from '../App'
 
 export default function Dashboard() {
     const { token } = useToken();

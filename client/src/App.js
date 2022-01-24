@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, Link, useHistory, Switch } from 'react-router-dom';
-import Dashboard from '../Pages/Dashboard';
-import Preferences from '../Pages/Preferences';
-import useToken from './useToken';
+import Dashboard from './components/Dashboard';
+import Preferences from './components/Preferences';
+import useToken from './components/useToken';
 import './App.css';
-import GitHubVisualizer from '../Pages/GitHubVisualizer';
+import GitHubVisualizer from './components/GitHubVisualizer';
 import Button from "@mui/material/Button"
 import { Stack } from '@mui/material';
-import QuestionDetail from '../Pages/QuestionDetail';
-import QuestionCreate from '../Pages/QuestionCreate';
-import SignIn from '../Authentication/SignIn';
-import SignUp from '../Authentication/SignUp';
+import QuestionDetail from './components/QuestionDetail';
+import QuestionCreate from './components/QuestionCreate';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 export const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
 
 function App() {
