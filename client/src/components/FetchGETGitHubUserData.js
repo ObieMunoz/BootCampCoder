@@ -1,4 +1,4 @@
-export function FetchGitHubUserData(github_username, setGitData) {
+export function FetchGETGitHubUserData(github_username, setGitData) {
     fetch(`https://api.github.com/users/${github_username}`)
         .then(response => response.json())
         .then(data => {

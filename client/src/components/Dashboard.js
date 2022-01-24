@@ -3,7 +3,7 @@ import useToken from './useToken';
 import ForumButtons from './ForumButtons';
 import QuestionTable from './QuestionTable';
 import { useHistory } from 'react-router-dom';
-import { API } from '../App'
+import { FetchGETQuestions } from './FetchGETQuestions';
 
 export default function Dashboard() {
     const { token } = useToken();
@@ -16,27 +16,19 @@ export default function Dashboard() {
     }, [])
 
     async function getQuestions() {
-        const res = await fetch(API + 'questions', {
-            method: "GET",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        });
+        const res = await FetchGETQuestions(token);
         const data = await res.json();
         return setQuestions(() => data);
     }
 
-    function logQuestions() {
-        console.log(questions);
-    }
-
     return (
         <>
-            <h2 onClick={logQuestions} style={{ textAlign: "center" }}>Dashboard</h2>
+            <h2 style={{ textAlign: "center" }}>Dashboard</h2>
             <ForumButtons />
             <br />
             <QuestionTable questions={questions} />
         </>
     );
 }
+
+

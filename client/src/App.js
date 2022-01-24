@@ -11,6 +11,7 @@ import QuestionDetail from './components/QuestionDetail';
 import QuestionCreate from './components/QuestionCreate';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import { FetchDELETEToken } from './components/FetchDELETEToken';
 export const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
 
 function App() {
@@ -31,13 +32,7 @@ function App() {
   }
 
   async function logout() {
-    await fetch(API + 'api-keys/' + tokenId, {
-      method: 'DELETE',
-      headers: new Headers({
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    });
+    await FetchDELETEToken(tokenId, token);
     setToken('');
     history.push('/');
   }
@@ -90,3 +85,5 @@ function App() {
 }
 
 export default App;
+
+

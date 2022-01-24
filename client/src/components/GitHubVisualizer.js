@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import useToken from './useToken'
 import { CreateTableContainerWithGitHubAccountData } from './CreateTableContainerWithGitHubAccountData';
 import { CreateTableContainerWithGitHubActiveDeploymentData } from './CreateTableContainerWithGitHubActiveDeploymentData';
-import { FetchGitHubUserData } from './FetchGitHubUserData';
-import { FetchGitHubRepositoryDataForUser } from './FetchGitHubRepositoryDataForUser';
+import { FetchGETGitHubUserData } from './FetchGETGitHubUserData';
+import { FetchGETGitHubRepositoryDataForUser } from './FetchGETGitHubRepositoryDataForUser';
 
 function GitHubVisualizer() {
     const { bearer } = useToken()
@@ -14,15 +14,15 @@ function GitHubVisualizer() {
 
     useEffect(() => {
         if (github_username) {
-            FetchGitHubUserData(github_username, setGitData);
+            FetchGETGitHubUserData(github_username, setGitData);
         }
     }, [])
 
     useEffect(() => {
         if (gitData) {
             for (let i = 1; i <= Math.ceil(gitData.public_repos / 100); i += 1) {
-                if (i <= 6) {
-                    FetchGitHubRepositoryDataForUser(github_username, i, setGitRepos);
+                if (i < 6) {
+                    FetchGETGitHubRepositoryDataForUser(github_username, i, setGitRepos);
                 } else {
                     console.log('Due to API rate limitations, only the first 500 repositories are scanned.')
                     break
