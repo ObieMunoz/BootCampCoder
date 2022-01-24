@@ -1,6 +1,6 @@
 import React from 'react';
 import TableRow from '@mui/material/TableRow';
-import { StyledTableCell } from "./StyledTableCell";
+import { StyledTableCell } from "../styles/StyledTableCell";
 
 export function AddTableRowGitHubActivePagesDeploymentCount(gitData, gitRepoList) {
     return gitData.login ? <TableRow>

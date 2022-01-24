@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API } from '../App';
-import { CopyrightStringWithMailToAndDate } from './CopyrightStringWithMailToAndDate';
+import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStringWithMailToAndDate';
 
 const theme = createTheme();
 

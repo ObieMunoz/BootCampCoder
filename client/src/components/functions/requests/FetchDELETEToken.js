@@ -1,4 +1,4 @@
-import { API } from '../App';
+import { API } from '../../../App';
 
 export function FetchDELETEToken(tokenId, token) {
     return fetch(API + 'api-keys/' + tokenId, {

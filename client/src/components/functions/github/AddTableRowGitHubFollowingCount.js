@@ -1,14 +1,14 @@
 import React from 'react';
 import TableRow from '@mui/material/TableRow';
-import { StyledTableCell } from "./StyledTableCell";
+import { StyledTableCell } from "../styles/StyledTableCell";
 
-export function AddTableRowGitHubHireableBoolean(gitData) {
-    return gitData.hireable ? <TableRow>
+export function AddTableRowGitHubFollowingCount(gitData) {
+    return gitData.following ? <TableRow>
         <StyledTableCell align="center">
-            Hireable
+            Following
         </StyledTableCell>
         <StyledTableCell align="center">
-            {gitData.hireable ? 'Yes' : 'No'}
+            {gitData.following}
         </StyledTableCell>
     </TableRow> : null;
 }

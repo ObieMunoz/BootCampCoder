@@ -1,14 +1,14 @@
 import React from 'react';
 import TableRow from '@mui/material/TableRow';
-import { StyledTableCell } from "./StyledTableCell";
+import { StyledTableCell } from "../styles/StyledTableCell";
 
-export function AddTableRowGitHubPublicRepositoryCount(gitData) {
-    return gitData.public_repos ? <TableRow>
+export function AddTableRowGitHubLinkedTwitter(gitData) {
+    return gitData.twitter_username ? <TableRow>
         <StyledTableCell align="center">
-            Public Repositories
+            Twitter Username
         </StyledTableCell>
         <StyledTableCell align="center">
-            {gitData.public_repos}
+            {gitData.twitter_username}
         </StyledTableCell>
     </TableRow> : null;
 }

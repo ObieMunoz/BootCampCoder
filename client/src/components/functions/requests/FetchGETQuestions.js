@@ -1,4 +1,4 @@
-import { API } from '../App';
+import { API } from '../../../App';
 
 export function FetchGETQuestions(token) {
     return fetch(API + 'questions', {

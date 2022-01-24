@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledTableCell } from "./StyledTableCell";
+import { StyledTableCell } from "../styles/StyledTableCell";
 
 export function CreateTableCellAndCleanRepositoryName(repo) {
     return <StyledTableCell align="center">

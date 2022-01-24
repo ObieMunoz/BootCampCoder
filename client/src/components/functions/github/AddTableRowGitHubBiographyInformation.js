@@ -1,14 +1,14 @@
 import React from 'react';
 import TableRow from '@mui/material/TableRow';
-import { StyledTableCell } from "./StyledTableCell";
+import { StyledTableCell } from "../styles/StyledTableCell";
 
-export function AddTableRowGitHubFollowersCount(gitData) {
-    return gitData.followers ? <TableRow>
+export function AddTableRowGitHubBiographyInformation(gitData) {
+    return gitData.bio ? <TableRow>
         <StyledTableCell align="center">
-            Followers
+            Bio
         </StyledTableCell>
         <StyledTableCell align="center">
-            {gitData.followers}
+            {gitData.bio}
         </StyledTableCell>
     </TableRow> : null;
 }

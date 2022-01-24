@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import useToken from './useToken'
-import { CreateTableContainerWithGitHubAccountData } from './CreateTableContainerWithGitHubAccountData';
-import { CreateTableContainerWithGitHubActiveDeploymentData } from './CreateTableContainerWithGitHubActiveDeploymentData';
-import { FetchGETGitHubUserData } from './FetchGETGitHubUserData';
-import { FetchGETGitHubRepositoryDataForUser } from './FetchGETGitHubRepositoryDataForUser';
+import useToken from './functions/useToken'
+import { CreateTableContainerWithGitHubAccountData } from './functions/github/CreateTableContainerWithGitHubAccountData';
+import { CreateTableContainerWithGitHubActiveDeploymentData } from './functions/github/CreateTableContainerWithGitHubActiveDeploymentData';
+import { FetchGETGitHubUserData } from './functions/requests/FetchGETGitHubUserData';
+import { FetchGETGitHubRepositoryDataForUser } from './functions/requests/FetchGETGitHubRepositoryDataForUser';
 
 function GitHubVisualizer() {
     const { bearer } = useToken()

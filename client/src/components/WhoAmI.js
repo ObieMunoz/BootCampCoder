@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useToken from './useToken';
-import { styled } from '@mui/material/styles';
+import useToken from './functions/useToken';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -19,7 +17,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { API } from '../App'
-import { StyledTableCell } from './StyledTableCell';
+import { StyledTableCell } from './functions/styles/StyledTableCell';
 
 
 function WhoAmI() {
@@ -31,7 +29,6 @@ function WhoAmI() {
     const [errors, setErrors] = useState();
     const [open, setOpen] = useState(false);
     const [deletionEMail, setDeletionEMail] = useState('');
-    const history = useHistory();
     const handleClickOpen = () => {
         setOpen(true);
     };

@@ -1,7 +1,7 @@
 import React from 'react';
 import TableRow from '@mui/material/TableRow';
 import Avatar from '@mui/material/Avatar';
-import { StyledTableCell } from "./StyledTableCell";
+import { StyledTableCell } from "../styles/StyledTableCell";
 
 export function AddTableRowGitHubAvatarAndUsername(gitData) {
     return <TableRow>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import useToken from './useToken';
-import ForumButtons from './ForumButtons';
-import QuestionTable from './QuestionTable';
+import useToken from './functions/useToken';
+import ForumButtons from './functions/questions/ForumButtons';
+import QuestionTable from './functions/questions/QuestionTable';
 import { useHistory } from 'react-router-dom';
-import { FetchGETQuestions } from './FetchGETQuestions';
+import { FetchGETQuestions } from './functions/requests/FetchGETQuestions';
 
 export default function Dashboard() {
     const { token } = useToken();

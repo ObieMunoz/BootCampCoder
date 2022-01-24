@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import useToken from './useToken';
+import useToken from './functions/useToken';
 import { useHistory } from 'react-router-dom';
-import { GenerateFormQuestionCreate } from './GenerateFormQuestionCreate';
-import { FetchPOSTNewQuestion } from './FetchPOSTNewQuestion';
+import { GenerateFormQuestionCreate } from './functions/questions/GenerateFormQuestionCreate';
+import { FetchPOSTNewQuestion } from './functions/requests/FetchPOSTNewQuestion';
 
 function QuestionCreate() {
     const [title, setTitle] = useState('');
