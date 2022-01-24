@@ -23,7 +23,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <h2 style={{ textAlign: "center" }}>Dashboard</h2>
+            <h2 style={{ textAlign: "center" }}>Discussion Board</h2>
             <ForumButtons />
             <br />
             <QuestionTable questions={questions} />

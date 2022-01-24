@@ -16,8 +16,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { API } from '../App'
 import { StyledTableCell } from './functions/styles/StyledTableCell';
+import { FetchPATCHUser } from './functions/requests/FetchPATCHUser';
+import { FetchDELETEUser } from './functions/requests/FetchDELETEUser';
 
 
 function WhoAmI() {
@@ -52,21 +53,8 @@ function WhoAmI() {
     }
 
     async function handleUpdateGitHub() {
-        const res = await fetch(API + `users/${bearer.id}`, {
-            method: "PATCH",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-                user: {
-                    password: password,
-                    github_username: newGitHubUsername
-                }
-            })
-        })
+        const res = await FetchPATCHUser(bearer, token, password, newGitHubUsername)
         const data = await res.json();
-        console.log(data)
         if (data.errors) {
             setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{data.errors}</Alert>)
             console.log(data.errors)
@@ -90,13 +78,7 @@ function WhoAmI() {
 
     async function handleDeleteAccount(e) {
         if (e.target.value === 'delete-account' && deletionEMail === bearer.email) {
-            const res = await fetch(API + `users/${bearer.id}`, {
-                method: "DELETE",
-                headers: new Headers({
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json'
-                }),
-            })
+            const res = await FetchDELETEUser(bearer, token)
             const data = await res.json();
             if (data.errors) {
                 setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{data.errors}</Alert>)

@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { API } from '../App'
+import { FetchDELETEQuestion } from './functions/requests/FetchDELETEQuestion';
 
 function QuestionDetail() {
     let { question_id } = useParams();
@@ -41,13 +42,7 @@ function QuestionDetail() {
     }
 
     async function handleDeleteQuestion() {
-        const res = await fetch(API + `questions/${question_id}`, {
-            method: "DELETE",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        });
+        const res = await FetchDELETEQuestion(question_id, token);
         const data = await res.json();
         console.log(data)
         history.push('/');
@@ -304,3 +299,5 @@ function QuestionDetail() {
 }
 
 export default QuestionDetail
+
+

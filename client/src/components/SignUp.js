@@ -12,18 +12,12 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStringWithMailToAndDate';
 import Alert from '@mui/material/Alert';
-import { API } from '../App';
+import { FetchCREATEUser } from './functions/requests/FetchCREATEUser';
 
 const theme = createTheme();
 
 async function registerUser(credentials) {
-    return fetch(API + 'users', {
-        method: 'POST',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(credentials)
-    })
+    return FetchCREATEUser(credentials)
         .then(data => data.json())
 }
 
@@ -89,7 +83,7 @@ export default function SignUp({ setToken }) {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Sign up for BootCampCoder
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>

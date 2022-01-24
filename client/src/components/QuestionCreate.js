@@ -23,7 +23,7 @@ function QuestionCreate() {
 
     return (
         <div>
-            <h1>QuestionCreate</h1>
+            <h2 style={{ textAlign: "center" }}>New Question</h2>
             {GenerateFormQuestionCreate(handleSubmit, title, setTitle, body, setBody, history)}
         </div>
     )
