@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import useToken from './useToken'
 import { CreateTableContainerWithGitHubAccountData } from './CreateTableContainerWithGitHubAccountData';
 import { CreateTableContainerWithGitHubActiveDeploymentData } from './CreateTableContainerWithGitHubActiveDeploymentData';
+import { FetchGitHubUserData } from './FetchGitHubUserData';
+import { FetchGitHubRepositoryDataForUser } from './FetchGitHubRepositoryDataForUser';
 
 function GitHubVisualizer() {
     const { bearer } = useToken()
@@ -12,12 +14,7 @@ function GitHubVisualizer() {
 
     useEffect(() => {
         if (github_username) {
-            fetch(`https://api.github.com/users/${github_username}`)
-                .then(response => response.json())
-                .then(data => {
-                    // console.log(data)
-                    setGitData(data)
-                })
+            FetchGitHubUserData(github_username, setGitData);
         }
     }, [])
 
@@ -25,11 +22,7 @@ function GitHubVisualizer() {
         if (gitData) {
             for (let i = 1; i <= Math.ceil(gitData.public_repos / 100); i += 1) {
                 if (i <= 6) {
-                    fetch(`https://api.github.com/users/${github_username}/repos?page=${i}&per_page=100`)
-                        .then(response => response.json())
-                        .then(data => {
-                            setGitRepos(prevState => [...prevState, ...data])
-                        })
+                    FetchGitHubRepositoryDataForUser(github_username, i, setGitRepos);
                 } else {
                     console.log('Due to API rate limitations, only the first 500 repositories are scanned.')
                     break
@@ -38,7 +31,6 @@ function GitHubVisualizer() {
         }
     }, [gitData])
 
-    console.log(gitRepos)
     const gitRepoList = gitRepos.filter(repo => repo.has_pages === true)
 
     return (
@@ -52,3 +44,6 @@ function GitHubVisualizer() {
 }
 
 export default GitHubVisualizer
+
+
+
