@@ -17,15 +17,6 @@ function App() {
   const { token, tokenId, setToken } = useToken();
   const history = useHistory();
 
-  // if (!token) {
-  //   return <div style={{ textAlign: "center" }}>
-  //     <h1>Application</h1>
-  //     <br />
-  //     <Login setToken={setToken} />
-  //     <Registration setToken={setToken} />
-  //   </div>
-  // }
-
   if (!token) {
     return <>
       <Switch>
