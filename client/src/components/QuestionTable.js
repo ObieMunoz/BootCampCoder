@@ -1,5 +1,4 @@
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { CreateTableContainerForQuestions } from './CreateTableContainerForQuestions';
 
 export default function QuestionTable({ questions }) {

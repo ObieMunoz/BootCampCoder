@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { StyledTableCell } from './StyledTableCell';

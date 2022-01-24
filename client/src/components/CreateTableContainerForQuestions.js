@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import { CreateTableForQuestions } from './CreateTableForQuestions';

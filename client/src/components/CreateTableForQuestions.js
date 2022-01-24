@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Table from '@mui/material/Table';
 import { CreateHeaderRowForQuestionsTable } from './CreateHeaderRowForQuestionsTable';
 import { CreateBodyForQuestionsTable } from './CreateBodyForQuestionsTable';
