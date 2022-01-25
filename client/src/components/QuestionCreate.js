@@ -5,6 +5,7 @@ import { GenerateFormQuestionCreate } from './functions/questions/create/Generat
 import { FetchPOSTNewQuestion } from './functions/requests/FetchPOSTNewQuestion';
 import { DetectErrors } from './functions/errors/DetectErrors';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
+import newQuestionBanner from '../assets/newQuestion.png'
 
 function QuestionCreate() {
     const [title, setTitle] = useState('');
@@ -23,8 +24,9 @@ function QuestionCreate() {
     }
 
     return (
-        <div>
-            <h2 style={{ textAlign: "center" }}>New Question</h2>
+        <div style={{ backgroundColor: 'white', borderRadius: '5px', padding: '10px', marginTop: '20px' }}>
+            {/* <h2 style={{ textAlign: "center" }}>New Question</h2> */}
+            <img src={newQuestionBanner} alt="preferences banner" style={{ display: 'flex', margin: '0 auto', width: '35vw' }} />
             {GenerateFormQuestionCreate(handleSubmit, title, setTitle, body, setBody, history, disabled)}
             {errors}
         </div>
