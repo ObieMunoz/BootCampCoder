@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchDELETEComment(commend_id, token, question_id) {
+export async function FetchDELETEComment(commend_id, token, question_id) {
     return fetch(API + `comments/${commend_id}`, {
         method: "DELETE",
         headers: new Headers({

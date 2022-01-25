@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchDELETEToken(tokenId, token) {
+export async function FetchDELETEToken(tokenId, token) {
     return fetch(API + 'api-keys/' + tokenId, {
         method: 'DELETE',
         headers: new Headers({

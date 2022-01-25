@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchGETQuestions(token) {
+export async function FetchGETQuestions(token) {
     return fetch(API + 'questions', {
         method: "GET",
         headers: new Headers({

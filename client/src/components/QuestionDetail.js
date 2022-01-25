@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import useToken from './functions/useToken';
 import Card from '@mui/material/Card';
@@ -8,13 +8,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { FetchDELETEQuestion } from './functions/requests/FetchDELETEQuestion';
-import { FetchGETQuestion } from './functions/requests/FetchGETQuestion';
 import { FetchPATCHQuestion } from './functions/requests/FetchPATCHQuestion';
 import { FetchDELETEComment } from './functions/requests/FetchDELETEComment';
 import { FetchPATCHComment } from './functions/requests/FetchPATCHComment';
 import { FetchCREATEComment } from './functions/requests/FetchCREATEComment';
 import { DetectErrors } from './functions/errors/DetectErrors';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
+import { GetQuestionData } from './GetQuestionData';
 
 function QuestionDetail() {
     let { question_id } = useParams();
@@ -30,19 +30,7 @@ function QuestionDetail() {
 
     const history = useHistory();
 
-    useEffect(() => {
-        getQuestion()
-    }, [])
-
-    async function getQuestion() {
-        const res = await FetchGETQuestion(question_id, token);
-        const data = await res.json();
-        console.log(data)
-        return (
-            setQuestion(() => data),
-            setQuestionFormData(() => ({ title: data.title, body: data.body }))
-        )
-    }
+    GetQuestionData(question_id, token, setQuestion, setQuestionFormData);
 
     async function handleDeleteQuestion() {
         const res = await FetchDELETEQuestion(question_id, token);
@@ -77,10 +65,9 @@ function QuestionDetail() {
     }
 
     async function removeComment(commend_id, question_id) {
-        const res = await FetchDELETEComment(commend_id, token, question_id);
-        const data = await res.json();
-        console.log(data)
-        getQuestion();
+        FetchDELETEComment(commend_id, token, question_id);
+        const newComments = question.comments.filter(comment => comment.id !== commend_id);
+        setQuestion(() => ({ ...question, comments: newComments }));
     }
 
     function handleChangeComment(e) {
@@ -97,7 +84,7 @@ function QuestionDetail() {
         const res = FetchPATCHComment(commentEditMode, token)
         res.then(data => {
             setCommentEditMode(() => ({ ...commentEditMode, editing: false }))
-            getQuestion();
+            // getQuestion();
         })
     }
 
@@ -114,10 +101,12 @@ function QuestionDetail() {
     }
 
     async function handleNewComment() {
-        const res = FetchCREATEComment(token, replying, question_id);
-        if (await res.status === 201) {
+        const res = await FetchCREATEComment(token, replying, question_id);
+        const data = await res.json();
+        if (res.status === 201) {
             setReplying(() => ({ ...replying, replying: false, body: '' }))
-            getQuestion();
+            const newComments = question.comments.concat(data);
+            setQuestion(() => ({ ...question, comments: newComments }));
         } else {
             CreateErrorModals(setErrors, { comment: ['must not be blank'] })
         }
@@ -265,5 +254,3 @@ function QuestionDetail() {
 }
 
 export default QuestionDetail
-
-

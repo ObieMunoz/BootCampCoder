@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchPATCHComment(commentEditMode, token) {
+export async function FetchPATCHComment(commentEditMode, token) {
     return fetch(API + `comments/${commentEditMode.comment_id}`, {
         method: "PATCH",
         headers: new Headers({

@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchPOSTNewQuestion(token, title, body) {
+export async function FetchPOSTNewQuestion(token, title, body) {
     return fetch(API + `questions`, {
         method: "POST",
         headers: new Headers({

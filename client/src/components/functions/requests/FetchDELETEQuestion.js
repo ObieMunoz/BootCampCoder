@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchDELETEQuestion(question_id, token) {
+export async function FetchDELETEQuestion(question_id, token) {
     return fetch(API + `questions/${question_id}`, {
         method: "DELETE",
         headers: new Headers({

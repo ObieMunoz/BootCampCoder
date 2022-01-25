@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchPATCHQuestion(question_id, token, questionFormData) {
+export async function FetchPATCHQuestion(question_id, token, questionFormData) {
     return fetch(API + `questions/${question_id}`, {
         method: "PATCH",
         headers: new Headers({

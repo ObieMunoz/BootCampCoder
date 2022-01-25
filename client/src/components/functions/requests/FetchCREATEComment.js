@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchCREATEComment(token, replying, question_id) {
+export async function FetchCREATEComment(token, replying, question_id) {
     return fetch(API + `comments`, {
         method: "POST",
         headers: new Headers({

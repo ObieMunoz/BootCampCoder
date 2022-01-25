@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchPATCHUser(bearer, token, password, newGitHubUsername) {
+export async function FetchPATCHUser(bearer, token, password, newGitHubUsername) {
     return fetch(API + `users/${bearer.id}`, {
         method: "PATCH",
         headers: new Headers({

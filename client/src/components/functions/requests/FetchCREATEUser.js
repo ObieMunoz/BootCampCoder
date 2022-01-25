@@ -1,6 +1,6 @@
 import { API } from '../../../App';
 
-export function FetchCREATEUser(credentials) {
+export async function FetchCREATEUser(credentials) {
     return fetch(API + 'users', {
         method: 'POST',
         headers: new Headers({
