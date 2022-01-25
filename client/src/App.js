@@ -13,11 +13,13 @@ import QuestionDetail from './components/QuestionDetail';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import banner from './assets/Logo.png';
+import useMediaQuery from '@mui/material/useMediaQuery';
 export const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
 
 function App() {
   const { token, tokenId, setToken } = useToken();
   const history = useHistory();
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   if (!token) {
     return <>
@@ -43,17 +45,17 @@ function App() {
       <header>
         {/* <h1>Application</h1> */}
         <img src={banner} alt="BootCampCoder" style={{ width: '80vw' }} />
-        <Stack spacing={10} direction="row" textAlign="center" justifyContent="center">
-          <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
+        <Stack spacing={isSmallScreen ? 1 : 10} direction={isSmallScreen ? 'column' : 'row'} textAlign="center" justifyContent="center">
+          <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
             Dashboard
           </Button></Link>
-          <Link to="/visualizer" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
+          <Link to="/visualizer" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
             GitHub Visualizer
           </Button></Link>
-          <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size="large">
+          <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
             Preferences
           </Button></Link>
-          <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" size="large">
+          <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
             Logout
           </Button>
         </Stack>
