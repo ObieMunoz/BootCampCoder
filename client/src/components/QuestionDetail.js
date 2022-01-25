@@ -7,8 +7,12 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { API } from '../App'
 import { FetchDELETEQuestion } from './functions/requests/FetchDELETEQuestion';
+import { FetchGETQuestion } from './functions/requests/FetchGETQuestion';
+import { FetchPATCHQuestion } from './functions/requests/FetchPATCHQuestion';
+import { FetchDELETEComment } from './functions/requests/FetchDELETEComment';
+import { FetchPATCHComment } from './functions/requests/FetchPATCHComment';
+import { FetchCREATEComment } from './functions/requests/FetchCREATEComment';
 
 function QuestionDetail() {
     let { question_id } = useParams();
@@ -26,13 +30,7 @@ function QuestionDetail() {
     }, [])
 
     async function getQuestion() {
-        const res = await fetch(API + `questions/${question_id}`, {
-            method: "GET",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        });
+        const res = await FetchGETQuestion(question_id, token);
         const data = await res.json();
         console.log(data)
         return (
@@ -49,17 +47,7 @@ function QuestionDetail() {
     }
 
     async function handleUpdateQuestion() {
-        const res = await fetch(API + `questions/${question_id}`, {
-            method: "PATCH",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-                title: questionFormData.title,
-                body: questionFormData.body
-            })
-        })
+        const res = await FetchPATCHQuestion(question_id, token, questionFormData)
         const data = await res.json();
         console.log(data)
         if (data.errors) {
@@ -84,17 +72,7 @@ function QuestionDetail() {
     }
 
     async function removeComment(commend_id, question_id) {
-        const res = await fetch(API + `comments/${commend_id}`, {
-            method: "DELETE",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-                comment_id: commend_id,
-                question_id: question_id
-            })
-        });
+        const res = await FetchDELETEComment(commend_id, token, question_id);
         const data = await res.json();
         console.log(data)
         getQuestion();
@@ -111,17 +89,7 @@ function QuestionDetail() {
     }
 
     async function handleUpdateComment() {
-        const res = fetch(API + `comments/${commentEditMode.comment_id}`, {
-            method: "PATCH",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-                body: commentEditMode.body,
-                question_id: commentEditMode.question_id
-            })
-        })
+        const res = FetchPATCHComment(commentEditMode, token)
         res.then(data => {
             setCommentEditMode(() => ({ ...commentEditMode, editing: false }))
             getQuestion();
@@ -141,17 +109,7 @@ function QuestionDetail() {
     }
 
     function handleNewComment() {
-        const res = fetch(API + `comments`, {
-            method: "POST",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-                body: replying.body,
-                question_id: question_id
-            })
-        })
+        const res = FetchCREATEComment(token, replying, question_id)
         res.then(data => {
             setReplying(() => ({ ...replying, replying: false, body: '' }))
             getQuestion();
