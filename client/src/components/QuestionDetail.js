@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import useToken from './functions/useToken';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import { FetchDELETEQuestion } from './functions/requests/FetchDELETEQuestion';
 import { FetchPATCHQuestion } from './functions/requests/FetchPATCHQuestion';
 import { FetchDELETEComment } from './functions/requests/FetchDELETEComment';
@@ -14,7 +8,10 @@ import { FetchPATCHComment } from './functions/requests/FetchPATCHComment';
 import { FetchCREATEComment } from './functions/requests/FetchCREATEComment';
 import { DetectErrors } from './functions/errors/DetectErrors';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
-import { GetQuestionData } from './GetQuestionData';
+import { GetQuestionData } from './functions/questions/detail/GetQuestionData';
+import { MapQuestionComments } from './functions/questions/detail/MapQuestionComments';
+import { CreateReplyForm } from './functions/questions/detail/CreateReplyForm';
+import { CreateQuestionDisplayCard } from './functions/questions/detail/CreateQuestionDisplayCard';
 
 function QuestionDetail() {
     let { question_id } = useParams();
@@ -34,18 +31,14 @@ function QuestionDetail() {
 
     async function handleDeleteQuestion() {
         const res = await FetchDELETEQuestion(question_id, token);
-        const data = await res.json();
-        console.log(data)
-        history.push('/');
+        if (res.status === 202) history.push('/');
     }
 
     async function handleUpdateQuestion() {
         const res = await FetchPATCHQuestion(question_id, token, questionFormData)
         const data = await res.json();
-        console.log(data)
         if (data.errors) {
-            // setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{data.errors}</Alert>)
-            console.log(data.errors)
+            CreateErrorModals(setErrors, data.errors);
         } else {
             setQuestionEditMode(() => false);
         }
@@ -104,8 +97,11 @@ function QuestionDetail() {
         const res = await FetchCREATEComment(token, replying, question_id);
         const data = await res.json();
         if (res.status === 201) {
+            console.log(data)
             setReplying(() => ({ ...replying, replying: false, body: '' }))
-            const newComments = question.comments.concat(data);
+            console.log(question.comments)
+            const newComments = [...question.comments, data];
+            console.log(newComments)
             setQuestion(() => ({ ...question, comments: newComments }));
         } else {
             CreateErrorModals(setErrors, { comment: ['must not be blank'] })
@@ -115,140 +111,46 @@ function QuestionDetail() {
     return (
         <div>
             <h2>Question Detail</h2>
-            <Card sx={{ minWidth: 275 }}>
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Question from {question.author} | {new Date(question.created_at).toLocaleString()}
-                    </Typography>
-                    {questionEditMode
-                        ? <div>
-                            <TextField
-                                id="new-question-title-field"
-                                name="title"
-                                label="Question Title"
-                                type="text"
-                                fullWidth
-                                required
-                                value={questionFormData.title}
-                                onChange={handleChangeQuestion}
-                            />
-                            <br /> <br />
-                            <TextField
-                                id="outlined-textarea"
-                                name="body"
-                                label="Description"
-                                multiline
-                                fullWidth
-                                rows={6}
-                                required
-                                value={questionFormData.body}
-                                onChange={handleChangeQuestion}
-                            />
-                        </div>
-                        : <div>
-                            <Typography variant="h4" component="div">
-                                {questionFormData.title}
-                            </Typography>
-                            <pre>
-                                <Typography variant="body2" sx={{ fontSize: 20, whiteSpace: 'pre-line' }}>
-                                    {questionFormData.body}
-                                </Typography>
-                            </pre>
-                        </div>
-                    }
-                </CardContent>
-                <CardActions>
-                    {questionEditMode ? <>
-                        <Button variant="contained" size="small" onClick={handleUpdateQuestion}>
-                            Submit update
-                        </Button>
-                        <Button variant="contained" size="small" onClick={handleCancelEditQuestion}>
-                            Cancel
-                        </Button>
-                    </>
-                        : <>
-                            <Button size="small" onClick={handleEnterReply}>Reply</Button>
-                            {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={handleEditQuestion}>Edit</Button> : null}
-                            {bearer.admin || (question.author === bearer.email) ? <Button size="small" onClick={handleDeleteQuestion}>Delete</Button> : null}
-                        </>
-                    }
-                </CardActions>
-            </Card>
+            {CreateQuestionDisplayCard(
+                question,
+                questionEditMode,
+                questionFormData,
+                handleChangeQuestion,
+                handleUpdateQuestion,
+                disabled,
+                handleCancelEditQuestion,
+                handleEnterReply,
+                bearer,
+                handleEditQuestion,
+                handleDeleteQuestion
+            )}
+
             {replying.replying
-                ? <div>
-                    <h3>New Reply</h3>
-                    <TextField
-                        id="outlined-textarea"
-                        name="body"
-                        label="Reply"
-                        multiline
-                        fullWidth
-                        rows={6}
-                        required
-                        value={replying.body}
-                        onChange={(e) => setReplying(() => ({ ...replying, body: e.target.value }))}
-                    />
-                    <br /><br />
-                    <Button variant="contained" size="small" onClick={handleNewComment} disabled={disabled}>
-                        Submit update
-                    </Button> &nbsp;&nbsp;
-                    <Button variant="contained" size="small" onClick={handleCancelNewComment}>
-                        Cancel
-                    </Button>
-                </div>
-                : null}
-            {errors}
-            <h2>Comments</h2>
-            {question.comments?.length > 0 ? question.comments.map(comment => {
-                return (
-                    <div key={comment.id}>
-                        {commentEditMode.editing && commentEditMode.comment_id === comment.id
-                            ? <Card sx={{ minWidth: 275 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14, whiteSpace: 'pre-line' }} color="text.secondary" gutterBottom>
-                                        Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
-                                    </Typography>
-                                    <pre>
-                                        <TextField
-                                            id={`comment-edit-field-${comment.id}`}
-                                            name="comment-edit-field"
-                                            label="Comment Body"
-                                            type="text"
-                                            fullWidth
-                                            required
-                                            value={commentEditMode.body}
-                                            onChange={handleChangeComment}
-                                        />
-                                    </pre>
-                                </CardContent>
-                                <CardActions>
-                                    <Button variant="contained" size="small" onClick={handleUpdateComment}>
-                                        Submit Comment
-                                    </Button>
-                                    <Button variant="contained" size="small" onClick={handleCancelEditComment}>
-                                        Cancel
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                            : <Card sx={{ minWidth: 275 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        Comment from {comment.author} | {new Date(comment.created_at).toLocaleString()}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ fontSize: 20, whiteSpace: 'pre-line' }}>
-                                        {comment.body}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    {bearer.admin || (comment.author === bearer.email) ? <Button size="small" onClick={() => handleEditComment(comment.id, comment.body, comment.question_id)}>Edit</Button> : null}
-                                    {bearer.admin || (comment.author === bearer.email) ? <Button size="small" onClick={() => removeComment(comment.id, comment.question_id)}>Delete</Button> : null}
-                                </CardActions>
-                            </Card>}
-                        <br />
-                    </div>
+                ? CreateReplyForm(
+                    replying,
+                    setReplying,
+                    handleNewComment,
+                    disabled,
+                    handleCancelNewComment
                 )
-            }
-            ) : "No comments yet"}
+                : null}
+
+            {errors}
+
+            <h2>Comments</h2>
+
+            {question.comments?.length > 0
+                ? MapQuestionComments(
+                    question,
+                    commentEditMode,
+                    handleChangeComment,
+                    handleUpdateComment,
+                    handleCancelEditComment,
+                    bearer,
+                    handleEditComment,
+                    removeComment
+                )
+                : "No comments yet"}
         </div>
     )
 }

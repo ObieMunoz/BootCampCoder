@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { FetchGETQuestion } from './functions/requests/FetchGETQuestion';
+import { FetchGETQuestion } from '../../requests/FetchGETQuestion';
 
 export function GetQuestionData(question_id, token, setQuestion, setQuestionFormData) {
     useEffect(() => {

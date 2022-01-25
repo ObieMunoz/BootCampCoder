@@ -32,5 +32,3 @@ function QuestionCreate() {
 }
 
 export default QuestionCreate
-
-
