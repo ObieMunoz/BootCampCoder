@@ -117,7 +117,7 @@ function QuestionDetail() {
 
     return (
         <div style={{ backgroundColor: 'white', borderRadius: '5px', padding: '10px', marginTop: '20px' }}>
-            <img src={detailBanner} alt="question detail banner" style={{ width: '35vw', display: 'flex', margin: '0 auto' }} />
+            <img src={detailBanner} alt="question detail banner" style={{ width: '60vw', display: 'flex', margin: '0 auto' }} />
             {CreateQuestionDisplayCard(
                 question,
                 questionEditMode,
@@ -131,7 +131,7 @@ function QuestionDetail() {
                 handleEditQuestion,
                 handleDeleteQuestion
             )}
-            <img src={commentBanner} alt="question detail banner" style={{ width: '35vw', display: 'flex', margin: '0 auto' }} />
+            <img src={commentBanner} alt="question detail banner" style={{ width: '60vw', display: 'flex', margin: '0 auto' }} />
             {replying.replying
                 ? CreateReplyForm(
                     replying,

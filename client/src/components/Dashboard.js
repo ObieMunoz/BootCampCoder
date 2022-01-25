@@ -25,7 +25,7 @@ export default function Dashboard() {
     return (
         <>
             {/* <h2 style={{ textAlign: "center" }}>Discussion Board</h2> */}
-            <img src={discussionBoardBanner} alt="discussion board" style={{ display: 'flex', margin: '0 auto', width: '35vw' }} />
+            <img src={discussionBoardBanner} alt="discussion board" style={{ display: 'flex', margin: '0 auto', width: '60vw' }} />
             <ForumButtons />
             <br />
             <QuestionTable questions={questions} />

@@ -25,7 +25,7 @@ function GitHubVisualizer() {
     return (
         <>
             {/* <h2>GitHub Visualizer</h2> */}
-            <img src={githubBanner} alt="GitHub Visualizer" style={{ display: 'flex', margin: '0 auto', width: '35vw' }} />
+            <img src={githubBanner} alt="GitHub Visualizer" style={{ display: 'flex', margin: '0 auto', width: '60vw' }} />
             {CreateTableContainerWithGitHubAccountData(gitData, gitRepoList)}
             <br />
             {CreateTableContainerWithGitHubActiveDeploymentData(gitRepoList, github_username)}

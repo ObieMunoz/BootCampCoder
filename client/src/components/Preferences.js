@@ -6,7 +6,7 @@ export default function Preferences() {
     return (
         <>
             {/* <h2>Preferences</h2> */}
-            <img src={preferencesBanner} alt="preferences banner" style={{ display: 'flex', margin: '0 auto', width: '35vw' }} />
+            <img src={preferencesBanner} alt="preferences banner" style={{ display: 'flex', margin: '0 auto', width: '60vw' }} />
             <WhoAmI />
         </>
     );

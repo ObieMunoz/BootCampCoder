@@ -26,7 +26,7 @@ function QuestionCreate() {
     return (
         <div style={{ backgroundColor: 'white', borderRadius: '5px', padding: '10px', marginTop: '20px' }}>
             {/* <h2 style={{ textAlign: "center" }}>New Question</h2> */}
-            <img src={newQuestionBanner} alt="preferences banner" style={{ display: 'flex', margin: '0 auto', width: '35vw' }} />
+            <img src={newQuestionBanner} alt="preferences banner" style={{ display: 'flex', margin: '0 auto', width: '60vw' }} />
             {GenerateFormQuestionCreate(handleSubmit, title, setTitle, body, setBody, history, disabled)}
             {errors}
         </div>

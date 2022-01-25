@@ -43,19 +43,18 @@ function App() {
   return (
     <div className="wrapper">
       <header>
-        {/* <h1>Application</h1> */}
         <img src={banner} alt="BootCampCoder" style={{ width: '80vw' }} />
-        <Stack spacing={isSmallScreen ? 1 : 10} direction={isSmallScreen ? 'column' : 'row'} textAlign="center" justifyContent="center">
-          <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
+        <Stack spacing={isSmallScreen ? 1 : 5} direction={isSmallScreen ? 'column' : 'row'} textAlign="center" justifyContent="center">
+          <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Dashboard
           </Button></Link>
-          <Link to="/visualizer" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
+          <Link to="/visualizer" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             GitHub Visualizer
           </Button></Link>
-          <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
+          <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Preferences
           </Button></Link>
-          <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" size={isSmallScreen ? "small" : "large"}>
+          <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Logout
           </Button>
         </Stack>
