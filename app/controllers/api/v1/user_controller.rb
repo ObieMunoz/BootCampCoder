@@ -9,7 +9,7 @@ class Api::V1::UserController < ApplicationController
             api_key = user.api_keys.create! token: token
             render json: { user: user, token: api_key }, status: :created
         else
-            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+            render json: user.errors.full_messages, status: :unprocessable_entity
         end
     end
 
@@ -19,16 +19,16 @@ class Api::V1::UserController < ApplicationController
               user.update(user_params)
               render json: user, status: :accepted and return
             end
-          render json: { errors: "Invalid password"}, status: :unauthorized
+          render json: ["Invalid password"], status: :unauthorized
     end
 
     def destroy
         user = User.find_by id: params[:id]
         if current_bearer.id == user.id
             user.destroy
-            render json: { message: "User deleted" }, status: :ok
+            render json: ["User deleted"], status: :ok
         else
-            render json: { errors: "You can't delete other users" }, status: :unauthorized
+            render json: ["You can't delete other users"], status: :unauthorized
         end
     end
 

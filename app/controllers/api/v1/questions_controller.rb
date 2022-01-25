@@ -38,7 +38,7 @@ class Api::V1::QuestionsController < ApplicationController
   def destroy
     if @question = current_bearer.admin? ? Question.find(params[:id]) : current_bearer.questions.find(params[:id])
       @question.destroy
-      render json: { message: 'Question deleted' }, status: :accepted
+      render json: ['Question deleted'], status: :accepted
     end
   end
 

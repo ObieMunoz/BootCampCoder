@@ -26,7 +26,7 @@ class Api::V1::CommentsController < ApplicationController
                           .merge(author: @comment.user.email),
              status: :created
     else
-      render json: { errors: @comment.errors }, status: :unprocessable_entity
+      render json: @comment.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -38,16 +38,16 @@ class Api::V1::CommentsController < ApplicationController
                           .merge(author: @comment.user.email),
              status: :ok
     else
-      render json: { errors: @comment.errors }, status: :unprocessable_entity
+      render json: @comment.errors.full_messages, status: :unprocessable_entity
     end
   end
 
   def destroy
     @comment = user_comment
     if @comment.destroy
-      render json: { message: 'Comment deleted' }, status: :ok
+      render json: ['Comment deleted'], status: :ok
     else
-      render json: { errors: 'You can\'t delete other users comments' }, status: :unauthorized
+      render json: ['You can\'t delete other users comments'], status: :unauthorized
     end
   end
 
