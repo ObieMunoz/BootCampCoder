@@ -10,6 +10,7 @@ export function CreateErrorModals(setErrors, token) {
             return token[key].map(error => {
                 key = key.charAt(0).toUpperCase() + key.slice(1);
                 return <>
+                    <br />
                     <Alert key={error} severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{key} {error}</Alert>
                     <br />
                 </>

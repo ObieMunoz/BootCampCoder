@@ -65,7 +65,6 @@ function QuestionDetail() {
 
     function handleChangeComment(e) {
         setCommentEditMode(() => ({ ...commentEditMode, body: e.target.value }))
-        console.log(commentEditMode)
     }
 
     function handleEditComment(comment_id, comment_body, question_id) {
@@ -74,11 +73,21 @@ function QuestionDetail() {
     }
 
     async function handleUpdateComment() {
-        const res = FetchPATCHComment(commentEditMode, token)
-        res.then(data => {
-            setCommentEditMode(() => ({ ...commentEditMode, editing: false }))
-            // getQuestion();
-        })
+        const res = await FetchPATCHComment(commentEditMode, token)
+        const data = await res.json()
+        setCommentEditMode(() => ({ ...commentEditMode, editing: false }))
+        if (data.errors) {
+            CreateErrorModals(setErrors, data.errors);
+        } else {
+            const newComments = question.comments.map(comment => {
+                if (comment.id === data.id) {
+                    return { ...comment, body: commentEditMode.body }
+                } else {
+                    return comment
+                }
+            })
+            setQuestion(() => ({ ...question, comments: newComments }))
+        }
     }
 
     function handleCancelEditComment() {
