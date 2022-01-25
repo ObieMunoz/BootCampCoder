@@ -11,12 +11,11 @@ function GitHubVisualizer() {
     const [gitData, setGitData] = useState([])
     const [gitRepos, setGitRepos] = useState([])
 
-
     useEffect(() => {
         if (github_username) {
             FetchGETGitHubUserData(github_username, setGitData);
         }
-    }, [])
+    }, [github_username])
 
     FetchPagesOfUserRepositories(gitData, github_username, setGitRepos);
 
