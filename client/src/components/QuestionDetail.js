@@ -23,9 +23,10 @@ function QuestionDetail() {
     const [replying, setReplying] = useState({ body: '', replying: false });
     const [errors, setErrors] = useState();
     const [disabled, setDisabled] = useState(false);
+    const history = useHistory();
+
     DetectErrors(errors, setDisabled, setErrors);
 
-    const history = useHistory();
 
     GetQuestionData(question_id, token, setQuestion, setQuestionFormData);
 
@@ -37,9 +38,8 @@ function QuestionDetail() {
     async function handleUpdateQuestion() {
         const res = await FetchPATCHQuestion(question_id, token, questionFormData)
         const data = await res.json();
-        if (data.errors) {
-            CreateErrorModals(setErrors, data.errors);
-        } else {
+        if (res.status !== 200) CreateErrorModals(setErrors, data)
+        else {
             setQuestionEditMode(() => false);
         }
     }
@@ -69,16 +69,14 @@ function QuestionDetail() {
 
     function handleEditComment(comment_id, comment_body, question_id) {
         setCommentEditMode(() => ({ ...commentEditMode, editing: true, comment_id: comment_id, body: comment_body, question_id: question_id }))
-        console.log(commentEditMode)
     }
 
     async function handleUpdateComment() {
         const res = await FetchPATCHComment(commentEditMode, token)
         const data = await res.json()
         setCommentEditMode(() => ({ ...commentEditMode, editing: false }))
-        if (data.errors) {
-            CreateErrorModals(setErrors, data.errors);
-        } else {
+        if (res.status !== 200) CreateErrorModals(setErrors, data)
+        else {
             const newComments = question.comments.map(comment => {
                 if (comment.id === data.id) {
                     return { ...comment, body: commentEditMode.body }
@@ -106,14 +104,11 @@ function QuestionDetail() {
         const res = await FetchCREATEComment(token, replying, question_id);
         const data = await res.json();
         if (res.status === 201) {
-            console.log(data)
             setReplying(() => ({ ...replying, replying: false, body: '' }))
-            console.log(question.comments)
             const newComments = [...question.comments, data];
-            console.log(newComments)
             setQuestion(() => ({ ...question, comments: newComments }));
         } else {
-            CreateErrorModals(setErrors, { comment: ['must not be blank'] })
+            CreateErrorModals(setErrors, data)
         }
     }
 

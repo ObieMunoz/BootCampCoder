@@ -18,8 +18,9 @@ import { DetectErrors } from './functions/errors/DetectErrors';
 const theme = createTheme();
 
 async function loginUser(credentials) {
-    return FetchCREATEApiKey(credentials)
-        .then(data => data.json());
+    const response = await FetchCREATEApiKey(credentials);
+    const data = await response.json();
+    return [response, data];
 }
 
 export default function SignIn({ setToken }) {
@@ -30,15 +31,14 @@ export default function SignIn({ setToken }) {
     async function handleSubmit(event) {
         event.preventDefault();
         const credentials = new FormData(event.currentTarget)
-        const token = await loginUser({
+        const [response, token] = await loginUser({
             email: credentials.get('email'),
             password: credentials.get('password'),
         });
-        if (token.errors) {
+        if (response.status !== 201) {
             CreateErrorModals(setErrors, token);
         } else {
             setToken(token);
-            console.log(token);
         }
     }
 

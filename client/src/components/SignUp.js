@@ -14,12 +14,14 @@ import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStr
 import Alert from '@mui/material/Alert';
 import { FetchCREATEUser } from './functions/requests/FetchCREATEUser';
 import { DetectErrors } from './functions/errors/DetectErrors';
+import { CreateErrorModals } from './functions/errors/CreateErrorModals';
 
 const theme = createTheme();
 
 async function registerUser(credentials) {
-    return FetchCREATEUser(credentials)
-        .then(data => data.json())
+    const response = await FetchCREATEUser(credentials);
+    const data = await response.json();
+    return [response, data];
 }
 
 export default function SignUp({ setToken }) {
@@ -36,25 +38,14 @@ export default function SignUp({ setToken }) {
             setErrors(() => [<Alert key={"invalid-email-password"} severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>E-Mail and Password are required</Alert>]);
             return;
         }
-        const token = await registerUser({
+        const [response, token] = await registerUser({
             user: {
                 email: userCreationForm.get('email'),
                 password: userCreationForm.get('password'),
                 github_username: userCreationForm.get('github')
             }
         })
-        if (token.errors) {
-            setErrors(token.errors.map(error => {
-                return <>
-                    <Alert key={error} severity="error" variant="filled" style={{ width: "200px", margin: "0px auto" }}>{error}</Alert>
-                    <br />
-                </>
-            }))
-            console.log(token.errors)
-        } else {
-            setToken(token);
-            console.log(token)
-        }
+        response.status !== 201 ? CreateErrorModals(setErrors, token) : setToken(token);
     }
 
 
