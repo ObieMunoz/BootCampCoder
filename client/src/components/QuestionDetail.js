@@ -13,6 +13,8 @@ import { FetchPATCHQuestion } from './functions/requests/FetchPATCHQuestion';
 import { FetchDELETEComment } from './functions/requests/FetchDELETEComment';
 import { FetchPATCHComment } from './functions/requests/FetchPATCHComment';
 import { FetchCREATEComment } from './functions/requests/FetchCREATEComment';
+import { DetectErrors } from './functions/DetectErrors';
+import { CreateErrorModals } from './functions/CreateErrorModals';
 
 function QuestionDetail() {
     let { question_id } = useParams();
@@ -22,6 +24,9 @@ function QuestionDetail() {
     const [questionFormData, setQuestionFormData] = useState({ title: '', body: '' });
     const [commentEditMode, setCommentEditMode] = useState({ body: '', comment_id: 0, question_id: 0, editing: false });
     const [replying, setReplying] = useState({ body: '', replying: false });
+    const [errors, setErrors] = useState();
+    const [disabled, setDisabled] = useState(false);
+    DetectErrors(errors, setDisabled, setErrors);
 
     const history = useHistory();
 
@@ -108,12 +113,14 @@ function QuestionDetail() {
         setReplying(() => ({ ...replying, replying: false, body: '' }))
     }
 
-    function handleNewComment() {
-        const res = FetchCREATEComment(token, replying, question_id)
-        res.then(data => {
+    async function handleNewComment() {
+        const res = FetchCREATEComment(token, replying, question_id);
+        if (await res.status === 201) {
             setReplying(() => ({ ...replying, replying: false, body: '' }))
             getQuestion();
-        })
+        } else {
+            CreateErrorModals(setErrors, { comment: ['must not be blank'] })
+        }
     }
 
     return (
@@ -193,7 +200,7 @@ function QuestionDetail() {
                         onChange={(e) => setReplying(() => ({ ...replying, body: e.target.value }))}
                     />
                     <br /><br />
-                    <Button variant="contained" size="small" onClick={handleNewComment}>
+                    <Button variant="contained" size="small" onClick={handleNewComment} disabled={disabled}>
                         Submit update
                     </Button> &nbsp;&nbsp;
                     <Button variant="contained" size="small" onClick={handleCancelNewComment}>
@@ -201,6 +208,7 @@ function QuestionDetail() {
                     </Button>
                 </div>
                 : null}
+            {errors}
             <h2>Comments</h2>
             {question.comments?.length > 0 ? question.comments.map(comment => {
                 return (
