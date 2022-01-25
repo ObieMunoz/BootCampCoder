@@ -3,7 +3,7 @@ import useToken from './functions/useToken'
 import { CreateTableContainerWithGitHubAccountData } from './functions/github/CreateTableContainerWithGitHubAccountData';
 import { CreateTableContainerWithGitHubActiveDeploymentData } from './functions/github/CreateTableContainerWithGitHubActiveDeploymentData';
 import { FetchGETGitHubUserData } from './functions/requests/FetchGETGitHubUserData';
-import { FetchGETGitHubRepositoryDataForUser } from './functions/requests/FetchGETGitHubRepositoryDataForUser';
+import { FetchPagesOfUserRepositories } from './functions/github/FetchPagesOfUserRepositories';
 
 function GitHubVisualizer() {
     const { bearer } = useToken()
@@ -18,18 +18,7 @@ function GitHubVisualizer() {
         }
     }, [])
 
-    useEffect(() => {
-        if (gitData) {
-            for (let i = 1; i <= Math.ceil(gitData.public_repos / 100); i += 1) {
-                if (i < 6) {
-                    FetchGETGitHubRepositoryDataForUser(github_username, i, setGitRepos);
-                } else {
-                    console.log('Due to API rate limitations, only the first 500 repositories are scanned.')
-                    break
-                }
-            }
-        }
-    }, [gitData])
+    FetchPagesOfUserRepositories(gitData, github_username, setGitRepos);
 
     const gitRepoList = gitRepos.filter(repo => repo.has_pages === true)
 
@@ -44,6 +33,7 @@ function GitHubVisualizer() {
 }
 
 export default GitHubVisualizer
+
 
 
 
