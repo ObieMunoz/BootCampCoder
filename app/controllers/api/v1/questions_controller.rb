@@ -17,7 +17,7 @@ class Api::V1::QuestionsController < ApplicationController
     if @question.save
       render json: @question, status: :created
     else
-      render json: @question.errors, status: :unprocessable_entity
+      render json: { errors: @question.errors }, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V1::QuestionsController < ApplicationController
     if @question.update(question_params)
       render json: @question
     else
-      render json: @question.errors, status: :unprocessable_entity
+      render json: { errors: @question.errors }, status: :unprocessable_entity
     end
   end
 

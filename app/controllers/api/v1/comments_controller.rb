@@ -26,7 +26,7 @@ class Api::V1::CommentsController < ApplicationController
                           .merge(author: @comment.user.email),
              status: :created
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: { errors: @comment.errors }, status: :unprocessable_entity
     end
   end
 
@@ -38,7 +38,7 @@ class Api::V1::CommentsController < ApplicationController
                           .merge(author: @comment.user.email),
              status: :ok
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: { errors: @comment.errors }, status: :unprocessable_entity
     end
   end
 
