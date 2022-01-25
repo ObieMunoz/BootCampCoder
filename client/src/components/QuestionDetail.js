@@ -14,7 +14,7 @@ import { FetchDELETEComment } from './functions/requests/FetchDELETEComment';
 import { FetchPATCHComment } from './functions/requests/FetchPATCHComment';
 import { FetchCREATEComment } from './functions/requests/FetchCREATEComment';
 import { DetectErrors } from './functions/DetectErrors';
-import { CreateErrorModals } from './functions/CreateErrorModals';
+import { CreateErrorModals } from './functions/errors/CreateErrorModals';
 
 function QuestionDetail() {
     let { question_id } = useParams();

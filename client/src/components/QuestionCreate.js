@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { GenerateFormQuestionCreate } from './functions/questions/create/GenerateFormQuestionCreate';
 import { FetchPOSTNewQuestion } from './functions/requests/FetchPOSTNewQuestion';
 import { DetectErrors } from './functions/DetectErrors';
-import { CreateErrorModals } from './functions/CreateErrorModals';
+import { CreateErrorModals } from './functions/errors/CreateErrorModals';
 
 function QuestionCreate() {
     const [title, setTitle] = useState('');

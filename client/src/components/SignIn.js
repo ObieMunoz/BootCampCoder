@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CreateErrorModals } from './functions/CreateErrorModals';
+import { CreateErrorModals } from './functions/errors/CreateErrorModals';
 import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStringWithMailToAndDate';
 import { FetchCREATEApiKey } from './functions/requests/FetchCREATEApiKey';
 import { DetectErrors } from './functions/DetectErrors';
