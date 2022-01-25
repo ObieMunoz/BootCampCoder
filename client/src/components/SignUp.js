@@ -13,7 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStringWithMailToAndDate';
 import Alert from '@mui/material/Alert';
 import { FetchCREATEUser } from './functions/requests/FetchCREATEUser';
-import { DetectErrors } from './functions/DetectErrors';
+import { DetectErrors } from './functions/errors/DetectErrors';
 
 const theme = createTheme();
 

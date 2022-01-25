@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
 import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStringWithMailToAndDate';
 import { FetchCREATEApiKey } from './functions/requests/FetchCREATEApiKey';
-import { DetectErrors } from './functions/DetectErrors';
+import { DetectErrors } from './functions/errors/DetectErrors';
 
 const theme = createTheme();
 
