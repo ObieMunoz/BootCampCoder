@@ -1,5 +1,4 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,21 +8,17 @@ import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { API } from '../App';
+import { CreateErrorModals } from './functions/CreateErrorModals';
 import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStringWithMailToAndDate';
+import { FetchCREATEApiKey } from './functions/requests/FetchCREATEApiKey';
+import { DetectErrors } from './functions/DetectErrors';
 
 const theme = createTheme();
 
 async function loginUser(credentials) {
-    return fetch(`${API}api-keys`, {
-        method: 'POST',
-        headers: new Headers({
-            'Authorization': 'Basic ' + btoa(`${credentials.email}:${credentials.password}`),
-            'Content-Type': 'application/x-www-form-urlencoded'
-        })
-    })
+    return FetchCREATEApiKey(credentials)
         .then(data => data.json());
 }
 
@@ -31,17 +26,7 @@ export default function SignIn({ setToken }) {
     const [errors, setErrors] = useState();
     const [disabled, setDisabled] = useState(false);
 
-    useEffect(() => {
-        if (errors) {
-            setDisabled(() => true)
-            setTimeout(() => {
-                setErrors();
-            }, 3000);
-            return () => {
-                setDisabled(() => false)
-            }
-        }
-    }, [errors])
+    DetectErrors(errors, setDisabled, setErrors);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -51,8 +36,7 @@ export default function SignIn({ setToken }) {
             password: credentials.get('password'),
         });
         if (token.errors) {
-            setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{token.errors}</Alert>);
-            // console.log(token.errors);
+            CreateErrorModals(setErrors, token);
         } else {
             setToken(token);
             console.log(token);
@@ -139,3 +123,6 @@ export default function SignIn({ setToken }) {
         </ThemeProvider>
     );
 }
+
+
+

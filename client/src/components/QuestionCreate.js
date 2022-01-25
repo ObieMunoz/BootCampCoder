@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useToken from './functions/useToken';
 import { useHistory } from 'react-router-dom';
-import { GenerateFormQuestionCreate } from './functions/questions/GenerateFormQuestionCreate';
+import { GenerateFormQuestionCreate } from './functions/questions/create/GenerateFormQuestionCreate';
 import { FetchPOSTNewQuestion } from './functions/requests/FetchPOSTNewQuestion';
 
 function QuestionCreate() {
