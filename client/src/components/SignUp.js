@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CopyrightStringWithMailToAndDate } from './functions/brand/CopyrightStringWithMailToAndDate';
 import Alert from '@mui/material/Alert';
 import { FetchCREATEUser } from './functions/requests/FetchCREATEUser';
+import { DetectErrors } from './functions/DetectErrors';
 
 const theme = createTheme();
 
@@ -22,20 +23,10 @@ async function registerUser(credentials) {
 }
 
 export default function SignUp({ setToken }) {
-    const [errors, setErrors] = React.useState();
-    const [disabled, setDisabled] = React.useState(false);
+    const [errors, setErrors] = useState();
+    const [disabled, setDisabled] = useState(false);
 
-    React.useEffect(() => {
-        if (errors) {
-            setDisabled(() => true)
-            setTimeout(() => {
-                setErrors();
-            }, 3000);
-            return () => {
-                setDisabled(() => false)
-            }
-        }
-    }, [errors])
+    DetectErrors(errors, setDisabled, setErrors);
 
     const handleSubmit = async e => {
         e.preventDefault();

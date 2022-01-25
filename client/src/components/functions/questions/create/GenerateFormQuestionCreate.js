@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 
-export function GenerateFormQuestionCreate(handleSubmit, title, setTitle, body, setBody, history) {
+export function GenerateFormQuestionCreate(handleSubmit, title, setTitle, body, setBody, history, disabled) {
     return <Box
         component="form"
         noValidate
@@ -28,7 +28,7 @@ export function GenerateFormQuestionCreate(handleSubmit, title, setTitle, body, 
             onChange={e => setBody(e.target.value)}
             required />
         <br /><br />
-        <Button variant="contained" color="primary" type="submit" size="large">Post Question</Button>
+        <Button variant="contained" color="primary" type="submit" size="large" disabled={disabled}>Post Question</Button>
         &nbsp;&nbsp;
         <Button variant="contained" color="primary" size="large" onClick={() => history.push("/")}>Go back</Button>
     </Box>;

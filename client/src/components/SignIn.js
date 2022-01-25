@@ -25,7 +25,6 @@ async function loginUser(credentials) {
 export default function SignIn({ setToken }) {
     const [errors, setErrors] = useState();
     const [disabled, setDisabled] = useState(false);
-
     DetectErrors(errors, setDisabled, setErrors);
 
     async function handleSubmit(event) {
