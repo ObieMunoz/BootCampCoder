@@ -92,7 +92,7 @@ function WhoAmI() {
 
     return (
         <>
-            <h3>Edit Profile:
+            <h3 style={{ color: '#00b5fd', textAlign: 'center' }}>Edit Profile:
                 <Switch onChange={handleToggleEditMode} checked={editMode}></Switch>
             </h3>
             <TableContainer component={Paper}>

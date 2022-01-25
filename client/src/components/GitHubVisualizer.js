@@ -4,6 +4,7 @@ import { CreateTableContainerWithGitHubAccountData } from './functions/github/Cr
 import { CreateTableContainerWithGitHubActiveDeploymentData } from './functions/github/CreateTableContainerWithGitHubActiveDeploymentData';
 import { FetchGETGitHubUserData } from './functions/requests/FetchGETGitHubUserData';
 import { FetchPagesOfUserRepositories } from './functions/github/FetchPagesOfUserRepositories';
+import githubBanner from '../assets/bcc-github-30-jacks-bar-font.png'
 
 function GitHubVisualizer() {
     const { bearer } = useToken()
@@ -23,7 +24,8 @@ function GitHubVisualizer() {
 
     return (
         <>
-            <h2>GitHub Visualizer</h2>
+            {/* <h2>GitHub Visualizer</h2> */}
+            <img src={githubBanner} alt="GitHub Visualizer" style={{ display: 'flex', margin: '0 auto' }} />
             {CreateTableContainerWithGitHubAccountData(gitData, gitRepoList)}
             <br />
             {CreateTableContainerWithGitHubActiveDeploymentData(gitRepoList, github_username)}
