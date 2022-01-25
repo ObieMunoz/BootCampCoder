@@ -44,7 +44,7 @@ function App() {
     <div className="wrapper">
       <header>
         <img src={banner} alt="BootCampCoder" style={{ width: '80vw' }} />
-        <Stack spacing={isSmallScreen ? 1 : 5} direction={isSmallScreen ? 'column' : 'row'} textAlign="center" justifyContent="center">
+        <Stack spacing={isSmallScreen ? 1 : 3} direction={isSmallScreen ? 'column' : 'row'} textAlign="center" justifyContent="center">
           <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Dashboard
           </Button></Link>
@@ -54,7 +54,7 @@ function App() {
           <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Preferences
           </Button></Link>
-          <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
+          <Button className="forum-buttons" onClick={() => logout()} variant="contained" color="primary" style={isSmallScreen ? { width: '90vw', margin: '8px auto' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Logout
           </Button>
         </Stack>
