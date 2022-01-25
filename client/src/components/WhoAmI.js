@@ -19,7 +19,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { StyledTableCell } from './functions/styles/StyledTableCell';
 import { FetchPATCHUser } from './functions/requests/FetchPATCHUser';
 import { FetchDELETEUser } from './functions/requests/FetchDELETEUser';
-
+import { DetectErrors } from './functions/errors/DetectErrors';
+import { CreateErrorModals } from './functions/errors/CreateErrorModals';
 
 function WhoAmI() {
     const { token, bearer } = useToken();
@@ -28,8 +29,13 @@ function WhoAmI() {
     const [newGitHubUsername, setNewGitHubUsername] = useState(bearer.github_username || '');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState();
+    const [disabled, setDisabled] = useState(false);
     const [open, setOpen] = useState(false);
     const [deletionEMail, setDeletionEMail] = useState('');
+    const history = useHistory();
+
+    DetectErrors(errors, setDisabled, setErrors);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -38,15 +44,6 @@ function WhoAmI() {
         setOpen(false);
         setDeletionEMail('');
     };
-    //
-
-    useEffect(() => {
-        if (errors) {
-            setTimeout(() => {
-                setErrors();
-            }, 3000);
-        }
-    }, [currentGitHubUser, errors]);
 
     function handleToggleEditMode() {
         setEditMode(() => !editMode);
@@ -55,9 +52,8 @@ function WhoAmI() {
     async function handleUpdateGitHub() {
         const res = await FetchPATCHUser(bearer, token, password, newGitHubUsername)
         const data = await res.json();
-        if (data.errors) {
-            setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{data.errors}</Alert>)
-            console.log(data.errors)
+        if (res.status !== 202) {
+            CreateErrorModals(setErrors, data);
         } else {
             setEditMode(() => false);
             setPassword(() => '');
@@ -80,16 +76,16 @@ function WhoAmI() {
         if (e.target.value === 'delete-account' && deletionEMail === bearer.email) {
             const res = await FetchDELETEUser(bearer, token)
             const data = await res.json();
-            if (data.errors) {
-                setErrors(<Alert severity="error" variant="filled" style={{ width: "300px", margin: "0px auto" }}>{data.errors}</Alert>)
+            if (res.status !== 200) {
+                CreateErrorModals(setErrors, data);
                 setOpen(false)
-                console.log(data.errors)
             } else {
                 sessionStorage.removeItem('token');
+                history.push('/');
                 window.location.reload();
             }
         } else if (deletionEMail !== bearer.email) {
-            setErrors(<Alert severity="error" variant="filled" style={{ width: "500px", margin: "0px auto" }}>Please enter your email address to delete your account</Alert>)
+            CreateErrorModals(setErrors, ['Please enter your email address to delete your account.']);
             setOpen(false)
         }
     }
