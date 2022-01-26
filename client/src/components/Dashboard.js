@@ -4,7 +4,6 @@ import ForumButtons from './functions/questions/ForumButtons';
 import QuestionTable from './functions/questions/QuestionTable';
 import { useHistory } from 'react-router-dom';
 import { FetchGETQuestions } from './functions/requests/FetchGETQuestions';
-import discussionBoardBanner from '../assets/discussion.png'
 
 export default function Dashboard() {
     const { token } = useToken();
@@ -24,8 +23,7 @@ export default function Dashboard() {
 
     return (
         <>
-            {/* <h2 style={{ textAlign: "center" }}>Discussion Board</h2> */}
-            <img src={discussionBoardBanner} alt="discussion board" style={{ display: 'flex', margin: '0 auto', width: '60vw' }} />
+            <h1 className="subheading">DISCUSSION BOARD</h1>
             <ForumButtons />
             <br />
             <QuestionTable questions={questions} />

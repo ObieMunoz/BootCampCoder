@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useToken from './functions/useToken';
 import Table from '@mui/material/Table';
@@ -10,7 +10,6 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Switch } from '@mui/material';
-import Alert from '@mui/material/Alert';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -92,7 +91,10 @@ function WhoAmI() {
 
     return (
         <>
-            <h3 style={{ color: '#00b5fd', textAlign: 'center' }}>Edit Profile:
+            {/* <h3 style={{ color: '#00b5fd', textAlign: 'center' }}>Edit Profile:
+                <Switch onChange={handleToggleEditMode} checked={editMode}></Switch>
+            </h3> */}
+            <h3 className="subheading-sm" style={{ textAlign: 'left' }}>EDIT PROFILE:
                 <Switch onChange={handleToggleEditMode} checked={editMode}></Switch>
             </h3>
             <TableContainer component={Paper}>
@@ -163,15 +165,17 @@ function WhoAmI() {
             <br />
             {editMode
                 ? <div style={{ textAlign: "center" }}>
-                    <TextField id="outlined-basic" label="Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                    <br /><br />
-                    <Button variant="contained" color="primary" onClick={handleUpdateGitHub}>
-                        Update Information
-                    </Button>
-                    <br /><br />
-                    <Button variant="contained" color="error" onClick={handleClickOpen}>
-                        Delete Account
-                    </Button>
+                    <div style={{ backgroundColor: 'white', padding: '20px', width: '250px', borderRadius: '5px', margin: '0 auto' }}>
+                        <TextField id="outlined-basic" label="Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                        <br /><br />
+                        <Button variant="contained" color="primary" onClick={handleUpdateGitHub}>
+                            Update Information
+                        </Button>
+                        <br /><br />
+                        <Button variant="contained" color="error" onClick={handleClickOpen}>
+                            Delete Account
+                        </Button>
+                    </div>
                     <Dialog open={open} onClose={handleClose}>
                         <DialogTitle>Delete Account</DialogTitle>
                         <DialogContent>

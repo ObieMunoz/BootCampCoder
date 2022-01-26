@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 
 export function CreateReplyForm(replying, setReplying, handleNewComment, disabled, handleCancelNewComment) {
     return <div>
-        <h3>New Reply</h3>
+        <h1 className='subheading-drk-sm'>NEW REPLY</h1>
         <TextField
             id="outlined-textarea"
             name="body"

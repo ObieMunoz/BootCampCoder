@@ -39,3 +39,52 @@ header nav div:hover {
 .question-table-row:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
+
+@font-face {
+  font-family: "changeling_neoinline";
+  src: url("./assets/changeling_neo_inline-webfont.woff2") format("woff2"),
+    url("./assets/changeling_neo_inline-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.mainheading {
+  font-family: "changeling_neoinline";
+  font-size: 6.1538vw;
+  text-align: center;
+  color: #00a1ff;
+  text-shadow: 0 0 50px #00a1ff;
+  text-align: center;
+  margin: 20px;
+}
+
+.subheading {
+  font-family: "changeling_neoinline";
+  font-size: 3.75vw;
+  color: #00a1ff;
+  text-shadow: 0 0 50px #00a1ff;
+  text-align: center;
+}
+
+.subheading-sm {
+  font-family: "changeling_neoinline";
+  font-size: 1.95vw;
+  color: #00a1ff;
+  text-shadow: 0 0 20px #00a1ff;
+  text-align: center;
+}
+
+.subheading-drk {
+  font-family: "changeling_neoinline";
+  font-size: 3.75vw;
+  color: #072227;
+  text-shadow: 0 0 50px #072227;
+  text-align: center;
+}
+
+.subheading-drk-sm {
+  font-family: "changeling_neoinline";
+  font-size: 2.5vw;
+  color: #072227;
+  text-shadow: 0 0 50px #072227;
+}

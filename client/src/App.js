@@ -12,7 +12,6 @@ import QuestionCreate from './components/QuestionCreate';
 import QuestionDetail from './components/QuestionDetail';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import banner from './assets/Logo.png';
 import useMediaQuery from '@mui/material/useMediaQuery';
 export const API = 'https://bootcampcoder.herokuapp.com/api/v1/'
 
@@ -43,7 +42,7 @@ function App() {
   return (
     <div className="wrapper">
       <header>
-        <img src={banner} alt="BootCampCoder" style={{ width: '80vw' }} />
+        <h1 className="mainheading">BOOTCAMPCODER</h1>
         <Stack spacing={isSmallScreen ? 1 : 3} direction={isSmallScreen ? 'column' : 'row'} textAlign="center" justifyContent="center">
           <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Dashboard
