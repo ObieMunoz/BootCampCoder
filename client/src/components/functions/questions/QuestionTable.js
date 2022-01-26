@@ -7,7 +7,6 @@ export default function QuestionTable({ questions }) {
     function createData(question_id, question, comments_count, author, updated_at) {
         return { question_id, question, comments_count, author, updated_at };
     }
-    console.log(questions)
     const rows = questions?.map(question => {
         return createData(question.id, question.title, question.comments_count, question.author, question.updated_at);
     })

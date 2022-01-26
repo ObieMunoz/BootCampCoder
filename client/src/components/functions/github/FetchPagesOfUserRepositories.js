@@ -8,7 +8,7 @@ export function FetchPagesOfUserRepositories(gitData, github_username, setGitRep
                 if (i <= 5) {
                     FetchGETGitHubRepositoryDataForUser(github_username, i, setGitRepos);
                 } else {
-                    console.log('Due to API rate limitations, only the first 500 repositories are scanned.');
+                    console.warn('Due to API rate limitations, only the first 500 repositories are scanned.');
                     break;
                 }
             }
