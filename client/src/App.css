@@ -55,7 +55,8 @@ header nav div:hover {
   color: #00a1ff;
   text-shadow: 0 0 50px #00a1ff;
   text-align: center;
-  margin: 20px;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .subheading {
