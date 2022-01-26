@@ -6,7 +6,7 @@ import './App.css';
 import Dashboard from './components/Dashboard';
 import { FetchDELETEToken } from './components/functions/requests/FetchDELETEToken';
 import useToken from './components/functions/useToken';
-import GitHubVisualizer from './components/GitHubVisualizer';
+import GitHubAssistant from './components/GitHubAssistant';
 import Preferences from './components/Preferences';
 import QuestionCreate from './components/QuestionCreate';
 import QuestionDetail from './components/QuestionDetail';
@@ -47,8 +47,8 @@ function App() {
           <Link to="/" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Dashboard
           </Button></Link>
-          <Link to="/visualizer" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
-            GitHub Visualizer
+          <Link to="/assistant" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
+            GitHub Assistant
           </Button></Link>
           <Link to="/preferences" style={{ textDecoration: 'none' }}><Button className="forum-buttons" variant="contained" color="primary" style={isSmallScreen ? { width: '90vw' } : { width: '20vw' }} size={isSmallScreen ? "small" : "large"}>
             Preferences
@@ -66,8 +66,8 @@ function App() {
         <Route path="/preferences">
           <Preferences />
         </Route>
-        <Route path="/visualizer">
-          <GitHubVisualizer />
+        <Route path="/assistant">
+          <GitHubAssistant />
         </Route>
         <Route path="/questions/new">
           <QuestionCreate />

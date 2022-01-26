@@ -5,7 +5,7 @@ import { CreateTableContainerWithGitHubActiveDeploymentData } from './functions/
 import { FetchGETGitHubUserData } from './functions/requests/FetchGETGitHubUserData';
 import { FetchPagesOfUserRepositories } from './functions/github/FetchPagesOfUserRepositories';
 
-function GitHubVisualizer() {
+function GitHubAssistant() {
     const { bearer } = useToken()
     const github_username = bearer.github_username
     const [gitData, setGitData] = useState([])
@@ -23,7 +23,7 @@ function GitHubVisualizer() {
 
     return (
         <>
-            <h1 className="subheading">GITHUB VISUALIZER</h1>
+            <h1 className="subheading">GITHUB ASSISTANT</h1>
             {CreateTableContainerWithGitHubAccountData(gitData, gitRepoList)}
             <br />
             {CreateTableContainerWithGitHubActiveDeploymentData(gitRepoList, github_username)}
@@ -31,7 +31,7 @@ function GitHubVisualizer() {
     )
 }
 
-export default GitHubVisualizer
+export default GitHubAssistant
 
 
 
