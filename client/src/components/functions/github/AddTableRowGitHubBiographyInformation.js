@@ -3,12 +3,16 @@ import TableRow from '@mui/material/TableRow';
 import { StyledTableCell } from "../styles/StyledTableCell";
 
 export function AddTableRowGitHubBiographyInformation(gitData) {
-    return gitData.bio ? <TableRow>
-        <StyledTableCell align="center">
-            Bio
-        </StyledTableCell>
-        <StyledTableCell align="center">
-            {gitData.bio}
-        </StyledTableCell>
-    </TableRow> : null;
+    return gitData.bio ? CreateTRBio() : null;
+
+    function CreateTRBio() {
+        return <TableRow>
+            <StyledTableCell align="center">
+                Bio
+            </StyledTableCell>
+            <StyledTableCell align="center">
+                {gitData.bio}
+            </StyledTableCell>
+        </TableRow>;
+    }
 }

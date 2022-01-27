@@ -4,10 +4,14 @@ import TableRow from '@mui/material/TableRow';
 import { StyledTableCell } from "../styles/StyledTableCell";
 
 export function CreateHeaderRowForGitHubActiveDeploymentData() {
-    return <TableHead>
-        <TableRow>
-            <StyledTableCell align="center">REPOSITORY NAME</StyledTableCell>
-            <StyledTableCell align="center">DEPLOYMENT LINK</StyledTableCell>
-        </TableRow>
-    </TableHead>;
+    return RenderTableHeaders();
+
+    function RenderTableHeaders() {
+        return <TableHead>
+            <TableRow>
+                <StyledTableCell align="center">REPOSITORY NAME</StyledTableCell>
+                <StyledTableCell align="center">DEPLOYMENT LINK</StyledTableCell>
+            </TableRow>
+        </TableHead>;
+    }
 }

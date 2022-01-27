@@ -4,10 +4,14 @@ import { CreateMailToLink } from './CreateMailToLink';
 
 export function CopyrightStringWithMailToAndDate() {
     return (
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 5 }}>
+        RenderCopyright()
+    );
+
+    function RenderCopyright() {
+        return <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 5 }}>
             {'Copyright © '}
             {CreateMailToLink()}
             {` ${new Date().getFullYear()}.`}
-        </Typography>
-    );
+        </Typography>;
+    }
 }

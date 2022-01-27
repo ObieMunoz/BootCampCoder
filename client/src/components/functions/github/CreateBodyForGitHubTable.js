@@ -15,19 +15,23 @@ import { AddTableRowGitHubFollowersCount } from './AddTableRowGitHubFollowersCou
 import { AddTableRowGitHubPublicRepositoryCount } from './AddTableRowGitHubPublicRepositoryCount';
 
 export function CreateBodyForGitHubTable(gitData, gitRepoList) {
-    return <TableBody>
-        {AddTableRowGitHubAvatarAndUsername(gitData)}
-        {AddTableRowGitHubLinkedTwitter(gitData)}
-        {AddTableRowGitHubPublicRepositoryCount(gitData)}
-        {AddTableRowGitHubFollowersCount(gitData)}
-        {AddTableRowGitHubFollowingCount(gitData)}
-        {AddTableRowGitHubActivePagesDeploymentCount(gitData, gitRepoList)}
-        {AddTableRowGitHubHireableBoolean(gitData)}
-        {AddTableRowGitHubCompanyInformation(gitData)}
-        {AddTableRowGitHubBlogInformation(gitData)}
-        {AddTableRowGitHubLocationInformation(gitData)}
-        {AddTableRowGitHubEMailInformation(gitData)}
-        {AddTableRowGitHubBiographyInformation(gitData)}
-        {AddTableRowGitHubProfileLink(gitData)}
-    </TableBody>;
+    return RenderTableBody();
+
+    function RenderTableBody() {
+        return <TableBody>
+            {AddTableRowGitHubAvatarAndUsername(gitData)}
+            {AddTableRowGitHubLinkedTwitter(gitData)}
+            {AddTableRowGitHubPublicRepositoryCount(gitData)}
+            {AddTableRowGitHubFollowersCount(gitData)}
+            {AddTableRowGitHubFollowingCount(gitData)}
+            {AddTableRowGitHubActivePagesDeploymentCount(gitData, gitRepoList)}
+            {AddTableRowGitHubHireableBoolean(gitData)}
+            {AddTableRowGitHubCompanyInformation(gitData)}
+            {AddTableRowGitHubBlogInformation(gitData)}
+            {AddTableRowGitHubLocationInformation(gitData)}
+            {AddTableRowGitHubEMailInformation(gitData)}
+            {AddTableRowGitHubBiographyInformation(gitData)}
+            {AddTableRowGitHubProfileLink(gitData)}
+        </TableBody>;
+    }
 }

@@ -4,8 +4,12 @@ import { CreateHeaderRowForGitHubActiveDeploymentData } from './CreateHeaderRowF
 import { CreateBodyForGitHubActiveDeploymentData } from './CreateBodyForGitHubActiveDeploymentData';
 
 export function CreateTableForGitHubActiveDeploymentData(gitRepoList, github_username) {
-    return <Table aria-label="customized table">
-        {CreateHeaderRowForGitHubActiveDeploymentData()}
-        {CreateBodyForGitHubActiveDeploymentData(gitRepoList, github_username)}
-    </Table>;
+    return RenderTableGitHubData();
+
+    function RenderTableGitHubData() {
+        return <Table aria-label="customized table">
+            {CreateHeaderRowForGitHubActiveDeploymentData()}
+            {CreateBodyForGitHubActiveDeploymentData(gitRepoList, github_username)}
+        </Table>;
+    }
 }
