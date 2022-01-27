@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useToken from './functions/useToken';
-import { FetchPATCHUser } from './functions/requests/FetchPATCHUser';
-import { FetchDELETEUser } from './functions/requests/FetchDELETEUser';
-import { DetectErrors } from './functions/errors/DetectErrors';
-import { CreateErrorModals } from './functions/errors/CreateErrorModals';
-import { RenderEditAccountPage } from './functions/preferences/RenderEditAccountPage';
+import useToken from '../useToken';
+import { FetchPATCHUser } from '../requests/FetchPATCHUser';
+import { FetchDELETEUser } from '../requests/FetchDELETEUser';
+import { DetectErrors } from '../errors/DetectErrors';
+import { CreateErrorModals } from '../errors/CreateErrorModals';
+import { RenderEditAccountPage } from './RenderEditAccountPage';
 
 function WhoAmI() {
     const { token, bearer } = useToken();

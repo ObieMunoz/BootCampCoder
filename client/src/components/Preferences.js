@@ -1,5 +1,5 @@
 import React from 'react';
-import WhoAmI from './WhoAmI';
+import WhoAmI from './functions/preferences/WhoAmI';
 
 export default function Preferences() {
     return (
