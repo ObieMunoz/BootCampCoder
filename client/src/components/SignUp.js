@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { createTheme } from '@mui/material/styles';
-import { DetectErrors } from './functions/errors/DetectErrors';
+import { useState } from 'react';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
+import { DetectErrors } from './functions/errors/DetectErrors';
 import { registerUser } from './functions/signup/registerUser';
 import { RenderSignUpPage } from './functions/signup/RenderSignUpPage';
 
@@ -36,5 +36,3 @@ export default function SignUp({ setToken }) {
         RenderSignUpPage(handleSubmit, disabled, errors)
     );
 }
-
-

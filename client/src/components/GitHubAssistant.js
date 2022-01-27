@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import useToken from './functions/useToken'
+import React, { useEffect, useState } from 'react';
 import { CreateTableContainerWithGitHubAccountData } from './functions/github/CreateTableContainerWithGitHubAccountData';
 import { CreateTableContainerWithGitHubActiveDeploymentData } from './functions/github/CreateTableContainerWithGitHubActiveDeploymentData';
-import { FetchGETGitHubUserData } from './functions/requests/FetchGETGitHubUserData';
 import { FetchPagesOfUserRepositories } from './functions/github/FetchPagesOfUserRepositories';
+import { FetchGETGitHubUserData } from './functions/requests/FetchGETGitHubUserData';
+import useToken from './functions/useToken';
 
 function GitHubAssistant() {
-    const { bearer } = useToken()
-    const github_username = bearer.github_username
     const [gitData, setGitData] = useState([])
     const [gitRepos, setGitRepos] = useState([])
+    const { bearer } = useToken()
+    const github_username = bearer.github_username
 
     useEffect(() => {
         if (github_username) {

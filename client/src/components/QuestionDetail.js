@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import useToken from './functions/useToken';
-import { FetchDELETEQuestion } from './functions/requests/FetchDELETEQuestion';
-import { FetchPATCHQuestion } from './functions/requests/FetchPATCHQuestion';
-import { FetchDELETEComment } from './functions/requests/FetchDELETEComment';
-import { FetchPATCHComment } from './functions/requests/FetchPATCHComment';
-import { FetchCREATEComment } from './functions/requests/FetchCREATEComment';
-import { DetectErrors } from './functions/errors/DetectErrors';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
+import { DetectErrors } from './functions/errors/DetectErrors';
 import { GetQuestionData } from './functions/questions/detail/GetQuestionData';
-import { MapQuestionComments } from './functions/questions/detail/MapQuestionComments';
-import { CreateReplyForm } from './functions/questions/detail/CreateReplyForm';
-import { CreateQuestionDisplayCard } from './functions/questions/detail/CreateQuestionDisplayCard';
+import { RenderQuestionDisplay } from './functions/questions/detail/RenderQuestionDisplay';
+import { FetchCREATEComment } from './functions/requests/FetchCREATEComment';
+import { FetchDELETEComment } from './functions/requests/FetchDELETEComment';
+import { FetchDELETEQuestion } from './functions/requests/FetchDELETEQuestion';
+import { FetchPATCHComment } from './functions/requests/FetchPATCHComment';
+import { FetchPATCHQuestion } from './functions/requests/FetchPATCHQuestion';
+import useToken from './functions/useToken';
 
 function QuestionDetail() {
     let { question_id } = useParams();
@@ -113,48 +111,10 @@ function QuestionDetail() {
     }
 
     return (
-        <div style={{ backgroundColor: 'white', borderRadius: '5px', padding: '10px', marginTop: '20px' }}>
-            <h1 className='subheading-drk'>QUESTION DETAIL</h1>
-            {CreateQuestionDisplayCard(
-                question,
-                questionEditMode,
-                questionFormData,
-                handleChangeQuestion,
-                handleUpdateQuestion,
-                disabled,
-                handleCancelEditQuestion,
-                handleEnterReply,
-                bearer,
-                handleEditQuestion,
-                handleDeleteQuestion
-            )}
-            <h1 className='subheading-drk'>COMMENTS</h1>
-            {replying.replying
-                ? CreateReplyForm(
-                    replying,
-                    setReplying,
-                    handleNewComment,
-                    disabled,
-                    handleCancelNewComment
-                )
-                : null}
-
-            {errors}
-
-            {question.comments?.length > 0
-                ? MapQuestionComments(
-                    question,
-                    commentEditMode,
-                    handleChangeComment,
-                    handleUpdateComment,
-                    handleCancelEditComment,
-                    bearer,
-                    handleEditComment,
-                    removeComment
-                )
-                : "No comments yet"}
-        </div>
+        RenderQuestionDisplay(question, questionEditMode, questionFormData, handleChangeQuestion, handleUpdateQuestion, disabled, handleCancelEditQuestion, handleEnterReply, bearer, handleEditQuestion, handleDeleteQuestion, replying, setReplying, handleNewComment, handleCancelNewComment, errors, commentEditMode, handleChangeComment, handleUpdateComment, handleCancelEditComment, handleEditComment, removeComment)
     )
 }
 
 export default QuestionDetail
+
+

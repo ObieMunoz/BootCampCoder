@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
-import useToken from './functions/useToken';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { CreateErrorModals } from './functions/errors/CreateErrorModals';
+import { DetectErrors } from './functions/errors/DetectErrors';
 import { GenerateFormQuestionCreate } from './functions/questions/create/GenerateFormQuestionCreate';
 import { FetchPOSTNewQuestion } from './functions/requests/FetchPOSTNewQuestion';
-import { DetectErrors } from './functions/errors/DetectErrors';
-import { CreateErrorModals } from './functions/errors/CreateErrorModals';
+import useToken from './functions/useToken';
 
 function QuestionCreate() {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-    const history = useHistory();
-    const { token } = useToken();
     const [errors, setErrors] = useState();
     const [disabled, setDisabled] = useState(false);
     DetectErrors(errors, setDisabled, setErrors);
+    const history = useHistory();
+    const { token } = useToken();
 
     async function handleSubmit(e) {
         e.preventDefault();

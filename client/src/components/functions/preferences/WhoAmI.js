@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import useToken from '../useToken';
-import { FetchPATCHUser } from '../requests/FetchPATCHUser';
-import { FetchDELETEUser } from '../requests/FetchDELETEUser';
-import { DetectErrors } from '../errors/DetectErrors';
 import { CreateErrorModals } from '../errors/CreateErrorModals';
+import { DetectErrors } from '../errors/DetectErrors';
+import { FetchDELETEUser } from '../requests/FetchDELETEUser';
+import { FetchPATCHUser } from '../requests/FetchPATCHUser';
+import useToken from '../useToken';
 import { RenderEditAccountPage } from './RenderEditAccountPage';
 
 function WhoAmI() {
@@ -25,7 +25,7 @@ function WhoAmI() {
         setOpen(true);
     };
 
-    const handleClose = (e) => {
+    const handleClose = () => {
         setOpen(false);
         setDeletionEMail('');
     };
