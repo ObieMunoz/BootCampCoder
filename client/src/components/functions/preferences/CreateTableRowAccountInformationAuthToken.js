@@ -3,12 +3,16 @@ import TableRow from '@mui/material/TableRow';
 import { StyledTableCell } from '../styles/StyledTableCell';
 
 export function CreateTableRowAccountInformationAuthToken(token) {
-    return <TableRow>
-        <StyledTableCell align="center">
-            Auth Token
-        </StyledTableCell>
-        <StyledTableCell align="center">
-            {token}
-        </StyledTableCell>
-    </TableRow>;
+    return RenderTableRowWithAuthenticationToken();
+
+    function RenderTableRowWithAuthenticationToken() {
+        return <TableRow>
+            <StyledTableCell align="center">
+                Auth Token
+            </StyledTableCell>
+            <StyledTableCell align="center">
+                {token}
+            </StyledTableCell>
+        </TableRow>;
+    }
 }
