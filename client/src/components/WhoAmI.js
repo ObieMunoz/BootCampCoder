@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useToken from './functions/useToken';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Switch } from '@mui/material';
@@ -15,11 +9,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { StyledTableCell } from './functions/styles/StyledTableCell';
 import { FetchPATCHUser } from './functions/requests/FetchPATCHUser';
 import { FetchDELETEUser } from './functions/requests/FetchDELETEUser';
 import { DetectErrors } from './functions/errors/DetectErrors';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
+import { CreateAccountInformationTable } from './functions/preferences/CreateAccountInformationTable';
 
 function WhoAmI() {
     const { token, bearer } = useToken();
@@ -94,70 +88,7 @@ function WhoAmI() {
             <h3 className="subheading-sm" style={{ textAlign: 'left' }}>EDIT PROFILE:
                 <Switch onChange={handleToggleEditMode} checked={editMode}></Switch>
             </h3>
-            <TableContainer component={Paper}>
-                <Table aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align="center">ACCOUNT INFORMATION</StyledTableCell>
-                            <StyledTableCell align="center">USER PROFILE</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <StyledTableCell align="center">
-                                E-Mail Address
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                {bearer.email}
-                            </StyledTableCell>
-                        </TableRow>
-                        <TableRow>
-                            <StyledTableCell align="center">
-                                Admin
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                {bearer.admin ? "Full Access" : "No Admin Privileges"}
-                            </StyledTableCell>
-                        </TableRow>
-                        <TableRow>
-                            <StyledTableCell align="center">
-                                Github Account
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                {editMode
-                                    ? <>
-                                        <TextField id="outlined-basic" label="GitHub Username" variant="outlined" value={newGitHubUsername} onChange={(e) => setNewGitHubUsername(e.target.value)} />
-                                    </>
-                                    : bearer.github_username || "No Account Listed"}
-                            </StyledTableCell>
-                        </TableRow>
-                        <TableRow>
-                            <StyledTableCell align="center">
-                                Account Created
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                {new Date(bearer.created_at).toLocaleString()}
-                            </StyledTableCell>
-                        </TableRow>
-                        <TableRow>
-                            <StyledTableCell align="center">
-                                Account Updated
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                {new Date(bearer.updated_at).toLocaleString()}
-                            </StyledTableCell>
-                        </TableRow>
-                        <TableRow>
-                            <StyledTableCell align="center">
-                                Auth Token
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                {token}
-                            </StyledTableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            {CreateAccountInformationTable(bearer, editMode, newGitHubUsername, setNewGitHubUsername, token)}
             <br />
             <br />
             {editMode
@@ -208,3 +139,5 @@ function WhoAmI() {
 }
 
 export default WhoAmI
+
+
