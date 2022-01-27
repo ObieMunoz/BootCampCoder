@@ -27,13 +27,10 @@ function App() {
   return (
     <div className="wrapper">
       {CreateHeaderAndNavbar(isSmallScreen, logout)}
-
       {GenerateSwitchAndRoutesForLoggedInUser(setToken)}
     </div>
   );
 }
 
 export default App;
-
-
 
