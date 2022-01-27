@@ -11,6 +11,6 @@ export function CreateTableCellAndCleanRepositoryName(repo) {
     }
 
     function CleanRepositoryName() {
-        return repo.name.split(/-|_/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        return repo.name.split(/[-|_|.]/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     }
 }
