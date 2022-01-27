@@ -1,19 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useToken from './functions/useToken';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { Switch } from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import { FetchPATCHUser } from './functions/requests/FetchPATCHUser';
 import { FetchDELETEUser } from './functions/requests/FetchDELETEUser';
 import { DetectErrors } from './functions/errors/DetectErrors';
 import { CreateErrorModals } from './functions/errors/CreateErrorModals';
-import { CreateAccountInformationTable } from './functions/preferences/CreateAccountInformationTable';
+import { RenderEditAccountPage } from './functions/preferences/RenderEditAccountPage';
 
 function WhoAmI() {
     const { token, bearer } = useToken();
@@ -84,60 +76,27 @@ function WhoAmI() {
     }
 
     return (
-        <>
-            <h3 className="subheading-sm" style={{ textAlign: 'left' }}>EDIT PROFILE:
-                <Switch onChange={handleToggleEditMode} checked={editMode}></Switch>
-            </h3>
-            {CreateAccountInformationTable(bearer, editMode, newGitHubUsername, setNewGitHubUsername, token)}
-            <br />
-            <br />
-            {editMode
-                ? <div style={{ textAlign: "center" }}>
-                    <div style={{ backgroundColor: 'white', padding: '20px', width: '250px', borderRadius: '5px', margin: '0 auto' }}>
-                        <TextField id="outlined-basic" label="Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                        <br /><br />
-                        <Button variant="contained" color="primary" onClick={handleUpdateGitHub}>
-                            Update Information
-                        </Button>
-                        <br /><br />
-                        <Button variant="contained" color="error" onClick={handleClickOpen}>
-                            Delete Account
-                        </Button>
-                    </div>
-                    <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Delete Account</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                This action is irreversible. Are you sure you want to delete your account?
-
-                                Type your e-mail address as confirmation.
-                            </DialogContentText>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="deletion-password-field"
-                                label="E-Mail Address"
-                                type="E-Mail Address"
-                                fullWidth
-                                variant="standard"
-                                value={deletionEMail}
-                                onChange={(e) => setDeletionEMail(e.target.value)}
-                                required
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose} value="cancel">Cancel</Button>
-                            <Button onClick={handleDeleteAccount} value="delete-account" color="error">Yes, Delete Account</Button>
-                        </DialogActions>
-                    </Dialog>
-                </div>
-                : null}
-            <br />
-            {errors}
-        </>
+        RenderEditAccountPage(handleToggleEditMode,
+            editMode,
+            bearer,
+            newGitHubUsername,
+            setNewGitHubUsername,
+            token,
+            password,
+            setPassword,
+            handleUpdateGitHub,
+            handleClickOpen,
+            open,
+            handleClose,
+            deletionEMail,
+            setDeletionEMail,
+            handleDeleteAccount,
+            errors)
     )
 }
 
 export default WhoAmI
+
+
 
 
