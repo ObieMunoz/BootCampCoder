@@ -91,9 +91,6 @@ function WhoAmI() {
 
     return (
         <>
-            {/* <h3 style={{ color: '#00b5fd', textAlign: 'center' }}>Edit Profile:
-                <Switch onChange={handleToggleEditMode} checked={editMode}></Switch>
-            </h3> */}
             <h3 className="subheading-sm" style={{ textAlign: 'left' }}>EDIT PROFILE:
                 <Switch onChange={handleToggleEditMode} checked={editMode}></Switch>
             </h3>
