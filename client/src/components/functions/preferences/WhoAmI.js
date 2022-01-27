@@ -61,18 +61,8 @@ function WhoAmI() {
         if (e.target.value === 'delete-account' && deletionEMail === bearer.email) {
             const res = await FetchDELETEUser(bearer, token)
             const data = await res.json();
-            if (res.status !== 200) {
-                CreateErrorModals(setErrors, data);
-                setOpen(false)
-            } else {
-                sessionStorage.removeItem('token');
-                history.push('/');
-                window.location.reload();
-            }
-        } else if (deletionEMail !== bearer.email) {
-            CreateErrorModals(setErrors, ['Please enter your email address to delete your account.']);
-            setOpen(false)
-        }
+            HandleDeletionResponse(res, data);
+        } else CreateErrorIfEMailMismatch();
     }
 
     return (
@@ -93,6 +83,31 @@ function WhoAmI() {
             handleDeleteAccount,
             errors)
     )
+
+    function HandleDeletionResponse(res, data) {
+        if (res.status !== 200)
+            CreateErrorModalAndClose(data);
+        else
+            RemoveTokenAndPushUserToRoot();
+    }
+
+    function CreateErrorModalAndClose(data) {
+        CreateErrorModals(setErrors, data);
+        setOpen(false);
+    }
+
+    function RemoveTokenAndPushUserToRoot() {
+        sessionStorage.removeItem('token');
+        history.push('/');
+        window.location.reload();
+    }
+
+    function CreateErrorIfEMailMismatch() {
+        if (deletionEMail !== bearer.email) {
+            CreateErrorModals(setErrors, ['Please enter your email address to delete your account.']);
+            setOpen(false);
+        }
+    }
 }
 
 export default WhoAmI
