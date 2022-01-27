@@ -7,11 +7,15 @@ import { CreateTableRowAccountInformationAdminStatus } from './CreateTableRowAcc
 import { CreateTableRowAccountInformationEMail } from './CreateTableRowAccountInformationEMail';
 
 export function CreateTableBodyAccountInformation(bearer, editMode, newGitHubUsername, setNewGitHubUsername, token) {
-    return <TableBody>
-        {CreateTableRowAccountInformationEMail(bearer)}
-        {CreateTableRowAccountInformationAdminStatus(bearer)}
-        {CreateTableRowAccountInformationGitHubEditable(editMode, newGitHubUsername, setNewGitHubUsername, bearer)}
-        {CreateTableRowAccountInformationAccountTimestamps(bearer)}
-        {CreateTableRowAccountInformationAuthToken(token)}
-    </TableBody>;
+    return RenderTableBodyAccountInformation();
+
+    function RenderTableBodyAccountInformation() {
+        return <TableBody>
+            {CreateTableRowAccountInformationEMail(bearer)}
+            {CreateTableRowAccountInformationAdminStatus(bearer)}
+            {CreateTableRowAccountInformationGitHubEditable(editMode, newGitHubUsername, setNewGitHubUsername, bearer)}
+            {CreateTableRowAccountInformationAccountTimestamps(bearer)}
+            {CreateTableRowAccountInformationAuthToken(token)}
+        </TableBody>;
+    }
 }
