@@ -116,7 +116,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.0-x86_64-linux)
       racc (~> 1.4)
-    obscenity (1.0.2)
     pg (1.2.3)
     puma (5.5.2)
       nio4r (~> 2.0)
@@ -174,7 +173,6 @@ DEPENDENCIES
   bootsnap
   byebug
   debug
-  obscenity
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
