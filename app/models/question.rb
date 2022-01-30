@@ -1,6 +1,6 @@
 class Question < ApplicationRecord
-    validates :title, presence: true, length: { in: 3..60 }
-    validates :body, presence: true, length: { in: 3..1000 }
+    validates :title, presence: true, length: { in: 2..60 }, obscenity: true
+    validates :body, presence: true, length: { in: 0..1000 }, obscenity: true
     before_save :capitalize_title
     belongs_to :user
     has_many :comments, dependent: :destroy
