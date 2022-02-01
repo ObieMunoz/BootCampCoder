@@ -7,8 +7,8 @@ BootCampCoder is a discussion board, inspired by StackOverflow, designed for new
 - React.js frontend with Material UI components for a fully responsive web application convenient for mobile use.
 
 ## Images
-<div>
 <img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-main.jpeg" width="800"/>
+<div>
   <img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-discussion-board.png" width="200" />
 <a href="#"><img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-github-info.png" width="200" /></a>
 <a href="#"><img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-github-deployments.png" width="200" /></a>
