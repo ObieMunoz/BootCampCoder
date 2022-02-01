@@ -1,4 +1,3 @@
-![](https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-main.jpeg)
 # BootCampCoder
 BootCampCoder is a discussion board, inspired by StackOverflow, designed for new programmers to post technical questions. The application also utilizes the GitHub API to dynamically display data from your GitHub user account.
 
@@ -7,8 +6,9 @@ BootCampCoder is a discussion board, inspired by StackOverflow, designed for new
 - API Key Authentication using localStorage to store login data client-side and allow application access.
 - React.js frontend with Material UI components for a fully responsive web application convenient for mobile use.
 
-## Screenshots
+## Images
 <div>
+<img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-main.jpeg" width="800"/>
   <img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-discussion-board.png" width="200" />
 <a href="#"><img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-github-info.png" width="200" /></a>
 <a href="#"><img src="https://github.com/ObieMunoz/BootCampCoder/blob/main/assets/bcc-github-deployments.png" width="200" /></a>
